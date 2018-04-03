@@ -1,0 +1,37 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      { "targets": { "browsers": ["> 1%", "last 2 versions", "safari >= 7"] }, "modules": false }
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-decorators",
+    [
+      "@babel/plugin-proposal-class-properties",
+      {
+        "loose": true
+      }
+    ],
+    "@babel/plugin-syntax-dynamic-import",
+    [
+      "@babel/plugin-transform-runtime",
+      { "helpers": false, "polyfill": false, "regenerator": true, "moduleName": "babel-runtime" }
+    ]
+  ],
+  "env": {
+    "test": {
+      "presets": [["@babel/preset-env", { "targets": { "node": "current" } }]],
+      "plugins": [
+        "@babel/plugin-proposal-decorators",
+        [
+          "@babel/plugin-proposal-class-properties",
+          {
+            "loose": true
+          }
+        ],
+        "@babel/plugin-syntax-dynamic-import"
+      ]
+    }
+  }
+}

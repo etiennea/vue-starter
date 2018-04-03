@@ -1,0 +1,6 @@
+.cache-loader
+dist
+node_modules
+tmp/**/*
+tests/e2e/videos
+tests/e2e/screenshots

@@ -1,0 +1,7 @@
+en:
+  global:
+    welcome: 'Welcome'
+
+fr:
+  global:
+    welcome: 'Bienvenue'

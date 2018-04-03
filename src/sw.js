@@ -1,0 +1,5 @@
+/* eslint-disable */
+
+workbox.skipWaiting();
+workbox.clientsClaim();
+workbox.precaching.precacheAndRoute(self.__precacheManifest);
