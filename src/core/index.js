@@ -3,9 +3,8 @@ import 'vue-class-component';
 import 'vue-property-decorator';
 import 'vuex-class';
 import '~/vueclass';
+import '~/vuets';
 import '../plugins';
-
-// import 'core-js/library/modules/es6.symbol';
 
 import Vue from 'vue';
 import { createApp } from './app';
@@ -24,10 +23,10 @@ router.onReady(() => {
 });
 
 /**
- * Hot Module Replacement
+ * Tota11y
  */
 if (process.env.NODE_ENV === 'development') {
-  if (module.hot) module.hot.accept();
+  require('tota11y/build/tota11y.min');
 }
 
 /**

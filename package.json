@@ -10,8 +10,7 @@
     "lint": "eslint --ext .js,.vue,.ts --fix --ignore-path .gitignore src",
     "stylelint": "stylelint scss/**/*.scss",
     "format": "prettier --ignore-path .gitignore --write ./**/*.{js,ts,vue} src",
-    "test":
-      "cross-env NODE_ENV=test mocha-webpack --webpack-config build/webpack.tests.js --require tests/setup.js tests/**/*.spec.{js,ts}",
+    "test": "cross-env NODE_ENV=test mocha-webpack --webpack-config build/webpack.tests.js --require tests/setup.js tests/**/*.spec.{js,ts}",
     "e2e": "cypress run",
     "e2e:open": "cypress open"
   },

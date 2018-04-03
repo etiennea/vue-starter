@@ -22,7 +22,6 @@
 
 ## Todo
 
-* Tota11y
 * Tests vue-loader@next
 * Add polyfills for IE
 
