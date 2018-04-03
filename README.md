@@ -19,6 +19,7 @@
   * Dotenv integration
 * Units tests with Mocha & @vue/test-utils
 * E2E tests with Cypress
+* Linters (ESLint & Stylelint) and Prettier
 
 ## Todo
 
