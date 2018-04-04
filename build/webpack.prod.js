@@ -8,6 +8,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const HtmlWebpackCriticalPlugin = require('html-webpack-critical-plugin');
+const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
 
 // Project config
 const project = require('../project');
@@ -15,6 +16,11 @@ const project = require('../project');
 const prodConfig = merge(config, {
   devtool: '#source-map',
   mode: 'production',
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   module: {
     rules: [
       {
@@ -79,5 +85,8 @@ if (project.workbox) {
     }),
   );
 }
+
+// SSR
+prodConfig.plugins.push(new VueSSRClientPlugin());
 
 module.exports = prodConfig;

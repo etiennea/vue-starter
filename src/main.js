@@ -8,9 +8,17 @@ if (process.env.NODE_ENV === 'development') {
 // Styles
 import '~~/scss/index.scss';
 
-// Init core
-import './core';
+// Init app
+import { createApp } from './core/app';
+const { app, router } = createApp();
 
 // Import shared component to be bundled in main chunk
 import './layouts/DefaultLayout';
 import './components/NavBar';
+
+/**
+ * Router ready & mounting app
+ */
+router.onReady(() => {
+  app.$mount('#app');
+});

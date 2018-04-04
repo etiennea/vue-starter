@@ -83,16 +83,11 @@ module.exports = {
       },
     ],
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
   plugins: [
     new WebpackBar(),
-    new CleanPlugin(['dist'], {
-      root: rootPath,
-    }),
+    // new CleanPlugin(['dist'], {
+    //   root: rootPath,
+    // }),
     new HtmlPlugin({
       template: join(srcPath, 'index.html'),
     }),

@@ -25,6 +25,14 @@
 
 * Tests vue-loader@next
 * Add polyfills for IE
+* SSR
+  * Vue-i18n
+  * Dev server: koa & koa-webpack
+  * Vue-meta
+  * Concurrent builds
+  * Errors pages
+  * Middlewares (ACL)
+  * Critical CSS tests
 
 ## License
 

@@ -1,24 +1,21 @@
 import Vue from 'vue';
 import App from './App';
-import VueI18n from 'vue-i18n';
-import messages from '~/i18n.yml';
 
+import './meta';
 import { createRouter } from './router';
 import { createStore } from './store';
+import { createI18n } from './i18n';
 
-export function createApp() {
+export function createApp(ssrContext) {
   const router = createRouter();
   const store = createStore();
-
-  const i18n = new VueI18n({
-    locale: 'fr',
-    messages,
-  });
+  const i18n = createI18n();
 
   const app = new Vue({
     router,
     store,
     i18n,
+    ssrContext,
     render: h => h(App),
   });
 
