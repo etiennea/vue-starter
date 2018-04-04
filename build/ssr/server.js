@@ -31,6 +31,7 @@ module.exports = function setupDevServer(app, cb) {
   const devMiddleware = require('webpack-dev-middleware')(clientCompiler, {
     publicPath: clientConfig.output.publicPath,
     noInfo: true,
+    stats: 'none',
   });
   app.use(devMiddleware);
 

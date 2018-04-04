@@ -3,14 +3,15 @@ const { join } = require('path');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanPlugin = require('clean-webpack-plugin');
-const WebpackBar = require('webpackbar');
 
 // Base paths
 const rootPath = join(__dirname, '..');
 const srcPath = join(rootPath, 'src');
 const assetsPath = join(rootPath, 'assets');
 const staticPath = join(rootPath, 'static');
+
+// Project config
+const project = require('../project');
 
 // Loaders
 const { babelLoader, tsLoader, vueLoader } = require('./loaders');
@@ -41,7 +42,6 @@ module.exports = {
     alias: {
       '~': srcPath,
       '~~': rootPath,
-      '~layouts': join(srcPath, 'components/layouts'),
       assets: assetsPath,
       static: staticPath,
       vue$: 'vue/dist/vue.runtime.esm.js',
@@ -84,16 +84,13 @@ module.exports = {
     ],
   },
   plugins: [
-    new WebpackBar(),
-    // new CleanPlugin(['dist'], {
-    //   root: rootPath,
-    // }),
     new HtmlPlugin({
       template: join(srcPath, 'index.html'),
     }),
     new webpack.DefinePlugin({
-      NODE_ENV: process.env.NODE_ENV,
-      ...envData,
+      'process.ssr': project.ssr ? true : false,
+      'process.env': JSON.stringify(envData),
+      'process.env.NODE_ENV': `'${process.env.NODE_ENV}'`,
     }),
     new webpack.NamedModulesPlugin(),
     new CopyWebpackPlugin([{ from: staticPath, to: 'static' }]),

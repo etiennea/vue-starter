@@ -1,23 +1,14 @@
 const merge = require('webpack-merge');
 const config = require('./webpack.base');
-const { sassLoader } = require('./loaders');
+const WebpackBar = require('webpackbar');
 
 module.exports = merge(config, {
   module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        use: sassLoader,
-      },
-      {
-        test: /\.woff2?(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            mimetype: 'application/font-woff',
-          },
-        },
-      },
-    ],
+    rules: [...require('./rules.dev')],
   },
+  plugins: [
+    new WebpackBar({
+      name: 'SPA: development',
+    }),
+  ],
 });

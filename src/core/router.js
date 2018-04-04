@@ -6,7 +6,7 @@ Vue.use(Router);
 
 export function createRouter() {
   return new Router({
-    mode: 'history',
+    mode: process.ssr ? 'history' : 'hash',
     routes: [...routes],
   });
 }
