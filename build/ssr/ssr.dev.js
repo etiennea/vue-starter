@@ -7,8 +7,6 @@ const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 
 const serverConfig = merge(config, {
   target: 'node',
-  devtool: '#source-map',
-  mode: 'development',
   stats: 'none',
   entry: join(__dirname, '../../src/main.ssr.js'),
   output: {
@@ -22,9 +20,7 @@ const serverConfig = merge(config, {
       color: 'orange',
     }),
     new webpack.DefinePlugin({
-      'process.env.VUE_ENV': "'server'",
       'process.ssr': 'true',
-      'process.client': 'false',
       'process.server': 'true',
     }),
     new VueSSRServerPlugin(),

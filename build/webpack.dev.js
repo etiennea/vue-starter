@@ -1,4 +1,5 @@
 const { join } = require('path');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const config = require('./webpack.base');
 const WebpackBar = require('webpackbar');
@@ -13,6 +14,9 @@ module.exports = merge(config, {
     rules: [...require('./rules.dev')],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.client': 'true',
+    }),
     new HtmlPlugin({
       template: join(srcPath, 'index.html'),
     }),

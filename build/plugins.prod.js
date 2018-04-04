@@ -5,6 +5,7 @@ const Imagemin = require('imagemin-webpack-plugin').default;
 const CssExtract = require('mini-css-extract-plugin');
 const Preload = require('preload-webpack-plugin');
 const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CriticalCSS = require('html-webpack-critical-plugin');
 
 // Project config
 const project = require('../project');
@@ -22,6 +23,7 @@ const plugins = [
     generateStatsFile: true,
     statsFilename: join(__dirname, '../tmp/stats.json'),
   }),
+  new CriticalCSS(),
 ];
 
 if (project.manifest) {

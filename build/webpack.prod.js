@@ -1,4 +1,5 @@
 const { join } = require('path');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const config = require('./webpack.base');
 const CriticalCSS = require('html-webpack-critical-plugin');
@@ -21,6 +22,9 @@ const prodConfig = merge(config, {
     rules: [...require('./rules.prod')],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.client': 'true',
+    }),
     new WebpackBar({
       name: 'SPA: production',
     }),

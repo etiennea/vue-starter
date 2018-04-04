@@ -22,6 +22,8 @@
 * Linters (ESLint & Stylelint) and Prettier
 * SSR support (work in progress)
   * Koa & koa-webpack
+  * vue-meta integration
+  * PWA, Workbox & Critical CSS
 
 ## Todo
 
@@ -32,15 +34,15 @@
   * build
   * start
 * SSR
-  * Vue-meta
+  * Client initial state
+  * Client asyncData
   * Store init middleware
   * Backend
     * Errors pages
     * Middlewares (ACL)
-  * Webpack plugins integration
-    * PWA / Workbox
-    * Critical CSS
   * Change project servers configs variables
+* Better core source code
+* Webpack chain / Better config
 
 ## License
 

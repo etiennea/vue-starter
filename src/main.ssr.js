@@ -5,6 +5,9 @@ export default context => {
   return new Promise((resolve, reject) => {
     const { app, router, store } = createApp(context);
 
+    // Attach meta for SSR
+    context.meta = app.$meta();
+
     router.push(context.url);
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents();

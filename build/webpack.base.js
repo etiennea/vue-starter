@@ -18,6 +18,7 @@ let envData = {};
 if (fs.existsSync(envPath)) {
   envData = require('dotenv').parse(fs.readFileSync(envPath));
 }
+envData.NODE_ENV = process.env.NODE_ENV;
 
 module.exports = {
   context: rootPath,
@@ -79,9 +80,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.ssr': 'false',
       'process.env': JSON.stringify(envData),
-      'process.env.NODE_ENV': `'${process.env.NODE_ENV}'`,
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
     new webpack.NamedModulesPlugin(),
     new CopyWebpackPlugin([{ from: staticPath, to: 'static' }]),

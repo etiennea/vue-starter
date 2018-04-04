@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'development') {
 import '~~/scss/index.scss';
 
 // Init app
-import { createApp } from './core/app';
+import { createApp } from './core';
 const { app, router } = createApp();
 
 // Import shared component to be bundled in main chunk

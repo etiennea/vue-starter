@@ -5,7 +5,7 @@ const clientConfig = require('./client.dev');
 const serverConfig = require('./ssr.dev');
 const koaWebpack = require('koa-webpack');
 
-module.exports = function setupDevServer(app, cb) {
+module.exports = function setupDevServer(app, buildContext, cb) {
   let serverBundle;
   let clientManifest;
 
@@ -36,6 +36,12 @@ module.exports = function setupDevServer(app, cb) {
     const readFile = file =>
       mfsClient.readFileSync(path.join(clientConfig.output.path, file), 'utf-8');
     clientManifest = JSON.parse(readFile('vue-ssr-client-manifest.json'));
+
+    buildContext.indexHTML = mfsClient.readFileSync(
+      path.join(clientConfig.output.path, 'index.ssr.html'),
+      'utf-8',
+    );
+
     if (serverBundle) {
       ready(serverBundle, { clientManifest });
     }

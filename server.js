@@ -1,21 +1,20 @@
 const { resolve } = require('path');
-const { readFileSync } = require('fs');
+const { readFileSync } = require('fs-extra');
 const Koa = require('koa');
 const compress = require('koa-compress');
 const mount = require('koa-mount');
 const serve = require('koa-static');
 
+const buildContext = {};
 const port = 3000;
 const app = new Koa();
 const isProd = process.env.NODE_ENV === 'production';
-const template = readFileSync(resolve('./src/index.ssr.html'), 'utf-8');
 
 /**
  * SSR
  */
 const createRenderer = (bundle, options) => {
   options = Object.assign(options, {
-    template,
     cache: require('lru-cache')({
       max: 1000,
       maxAge: 1000 * 60 * 15,
@@ -36,9 +35,47 @@ if (isProd) {
   });
   readyPromise = Promise.resolve();
 } else {
-  readyPromise = require('./build/ssr/devServer')(app, (bundle, options) => {
+  readyPromise = require('./build/ssr/devServer')(app, buildContext, (bundle, options) => {
     renderer = createRenderer(bundle, options);
   });
+}
+
+/**
+ * HTML builder
+ */
+const htmlBuilder = async (context, html) => {
+  const template = buildContext.indexHTML;
+
+  // Metas
+  const bodyOpt = { body: true };
+  const {
+    title,
+    htmlAttrs,
+    bodyAttrs,
+    link,
+    style,
+    script,
+    noscript,
+    meta,
+  } = context.meta.inject();
+
+  const head =
+    meta.text() + title.text() + link.text() + style.text() + script.text() + noscript.text();
+
+  const body = `${html}${script.text(bodyOpt)}`;
+
+  let result = template
+    .replace(/data-html-attrs(="")?/, htmlAttrs.text())
+    .replace(/data-body-attrs(="")?/, bodyAttrs.text())
+    .replace('<!--head-->', head)
+    .replace('<!--body-->', body);
+
+  return result;
+};
+
+// In production mode get index.ssr.html file content
+if (isProd) {
+  buildContext.indexHTML = readFileSync('./dist/index.ssr.html', 'utf-8');
 }
 
 /**
@@ -58,13 +95,13 @@ const renderRoute = (ctx, context) => {
       `;
     };
 
-    renderer.renderToString(context, (err, html) => {
+    renderer.renderToString(context, async (err, html) => {
       if (err) {
         errorHandler(err);
         return resolve();
       }
       ctx.response.status = 200;
-      ctx.response.body = html;
+      ctx.response.body = await htmlBuilder(context, html);
       resolve();
     });
   });
@@ -81,7 +118,7 @@ if (isProd) {
 
 app.use(async ctx => {
   const { url } = ctx;
-  const context = { url };
+  const context = { url, ctx };
 
   if (isProd) {
     await renderRoute(ctx, context);
