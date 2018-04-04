@@ -22,7 +22,7 @@
 * Linters (ESLint & Stylelint) and Prettier
 * SSR support (work in progress)
   * Koa & koa-webpack
-  * vue-meta integration
+  * vuex & meta integration
   * PWA, Workbox & Critical CSS
 
 ## Todo
@@ -35,12 +35,19 @@
   * start
 * SSR
   * asyncData with component data
-  * Store init middleware
-  * Backend
-    * Errors pages
-    * Middlewares (ACL)
+  * redirect() to app.context on server side
+  * Future
+    * Middlewares system
+    * Error page
+    * Layouts systems
   * Change project servers configs variables
-* Webpack chain / Better config
+* Webpack chain / Better & cleaning config
+
+## Credits
+
+* [Evan You & VueJS core members](https://vuejs.org/)
+* [NuxtJS members](https://nuxtjs.org/)
+* [@crisbal and his great repo](https://github.com/crisbal/vue-webpack-ssr-fully-featured)
 
 ## License
 

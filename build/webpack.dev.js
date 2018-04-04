@@ -18,7 +18,7 @@ module.exports = merge(config, {
       'process.client': 'true',
     }),
     new HtmlPlugin({
-      template: join(srcPath, 'index.html'),
+      template: join(srcPath, 'index.spa.html'),
     }),
     new WebpackBar({
       name: 'SPA: development',

@@ -19,7 +19,7 @@ module.exports = merge(config, {
       name: 'SSR: Client',
     }),
     new HtmlPlugin({
-      template: join(srcPath, 'index.tpl.html'),
+      template: join(srcPath, 'index.ssr.html'),
       filename: 'index.ssr.html',
     }),
     new webpack.DefinePlugin({

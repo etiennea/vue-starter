@@ -4,6 +4,7 @@ const MFS = require('memory-fs');
 const clientConfig = require('./client.dev');
 const serverConfig = require('./ssr.dev');
 const koaWebpack = require('koa-webpack');
+const values = require('lodash/values');
 
 module.exports = function setupDevServer(app, buildContext, cb) {
   let serverBundle;
@@ -20,11 +21,10 @@ module.exports = function setupDevServer(app, buildContext, cb) {
   };
 
   // Config for dev middleware
-  clientConfig.entry = [clientConfig.entry];
+  clientConfig.entry = values(clientConfig.entry);
+  serverConfig.entry = [serverConfig.entry];
   clientConfig.output.filename = '[name].js';
   clientConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
-
-  serverConfig.entry = [serverConfig.entry];
 
   // Client compiler
   const mfsClient = new MFS();

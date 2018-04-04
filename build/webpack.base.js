@@ -22,7 +22,9 @@ envData.NODE_ENV = process.env.NODE_ENV;
 
 module.exports = {
   context: rootPath,
-  entry: join(srcPath, 'main.js'),
+  entry: {
+    app: join(srcPath, 'entry.client.js'),
+  },
   output: {
     path: join(rootPath, 'dist'),
     filename: 'js/[name].[hash].js',

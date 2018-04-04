@@ -5,10 +5,14 @@ const config = require('../webpack.base');
 const WebpackBar = require('webpackbar');
 const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 
+// Base paths
+const rootPath = join(__dirname, '../..');
+const srcPath = join(rootPath, 'src');
+
 const serverConfig = merge(config, {
   target: 'node',
   stats: 'none',
-  entry: join(__dirname, '../../src/main.ssr.js'),
+  entry: join(srcPath, 'entry.server.js'),
   output: {
     filename: 'server-bundle.js',
     libraryTarget: 'commonjs2',
