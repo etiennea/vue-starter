@@ -34,14 +34,12 @@
   * build
   * start
 * SSR
-  * Client initial state
-  * Client asyncData
+  * asyncData with component data
   * Store init middleware
   * Backend
     * Errors pages
     * Middlewares (ACL)
   * Change project servers configs variables
-* Better core source code
 * Webpack chain / Better config
 
 ## License

@@ -60,9 +60,15 @@ const htmlBuilder = async (context, html) => {
   } = context.meta.inject();
 
   const head =
-    meta.text() + title.text() + link.text() + style.text() + script.text() + noscript.text();
+    meta.text() +
+    title.text() +
+    link.text() +
+    style.text() +
+    script.text() +
+    noscript.text() +
+    context.renderState();
 
-  const body = `${html}${script.text(bodyOpt)}`;
+  const body = html + script.text(bodyOpt) + context.renderState();
 
   let result = template
     .replace(/data-html-attrs(="")?/, htmlAttrs.text())

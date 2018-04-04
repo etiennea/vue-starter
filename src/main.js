@@ -1,24 +1,14 @@
-/**
- * Hot Module Replacement
- */
-if (process.env.NODE_ENV === 'development') {
-  if (module.hot) module.hot.accept();
-}
+if (process.env.NODE_ENV === 'development' && process.client) if (module.hot) module.hot.accept();
 
-// Styles
-import '~~/scss/index.scss';
-
-// Init app
 import { createApp } from './core';
-const { app, router } = createApp();
+import { startApp } from './core/start.client';
 
-// Import shared component to be bundled in main chunk
+import '~~/scss/index.scss';
 import './layouts/DefaultLayout';
 import './components/NavBar';
 
-/**
- * Router ready & mounting app
- */
-router.onReady(() => {
-  app.$mount('#app');
-});
+// Create application
+const { app, router, store } = createApp();
+
+// Start application
+startApp({ app, router, store });
