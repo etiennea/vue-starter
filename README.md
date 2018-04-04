@@ -4,10 +4,10 @@
 
 ## Features
 
-* Webpack 4
-* Vue class component with Babel 7 or TypeScript
-* Sass enabled by default
-* PWA & Workbox plugins
+* **Webpack 4**
+* Vue class component with **Babel 7** or **TypeScript**
+* **Sass** enabled by default
+* **PWA & Workbox** plugins
 * Vue plugins
   * vue-i18n
   * vue-meta
@@ -15,12 +15,12 @@
 * Webpack plugins
   * PostCSS with Autoprefixer & CSSNext
   * Imagemin
-  * Critical CSS
+  * **Critical CSS**
   * Dotenv integration
-* Units tests with Mocha & @vue/test-utils
-* E2E tests with Cypress
-* Linters (ESLint & Stylelint) and Prettier
-* SSR support (work in progress)
+* Units tests with **Mocha & @vue/test-utils**
+* E2E tests with **Cypress**
+* **Linters** (ESLint & Stylelint) and **Prettier**
+* **SSR** support (work in progress)
   * Koa & koa-webpack
   * vuex & meta integration
   * PWA, Workbox & Critical CSS
@@ -28,20 +28,29 @@
 ## Todo
 
 * Add polyfills for IE
+* Simple CSS loader
+* Example
+* SPA loading
+* Store module system
+* Vue svg loader ?
 * CLI
   * Clean dist files
   * dev
   * build
   * start
 * SSR
-  * asyncData with component data
-  * redirect() to app.context on server side
+  * redirect()
+  * Change project servers configs variables
+  * Route change loading
   * Future
+    * asyncData with component data
     * Middlewares system
     * Error page
     * Layouts systems
-  * Change project servers configs variables
-* Webpack chain / Better & cleaning config
+    * Dockerfile
+* Webpack cleaner
+  * Chain
+  * Extend in project config
 
 ## Credits
 
