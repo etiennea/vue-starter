@@ -20,17 +20,19 @@
 * Units tests with Mocha & @vue/test-utils
 * E2E tests with Cypress
 * Linters (ESLint & Stylelint) and Prettier
+* SSR support (work in progress)
+  * Koa & koa-webpack
 
 ## Todo
 
-* Tests vue-loader@next
 * Add polyfills for IE
 * SSR
-  * Dev server: koa & koa-webpack
   * Vue-meta
-  * Concurrent builds (dev & prod)
+  * Store init middleware
   * Errors pages
   * Middlewares (ACL)
+  * Clean boot files
+  * Change project servers configs variables
   * Critical CSS tests
 
 ## License

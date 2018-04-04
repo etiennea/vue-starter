@@ -1,40 +1,34 @@
-const fs = require('fs');
-const path = require('path');
-const compression = require('compression');
-const express = require('express');
-const app = express();
+const { resolve } = require('path');
+const { readFileSync } = require('fs');
+const Koa = require('koa');
+const compress = require('koa-compress');
+const mount = require('koa-mount');
+const serve = require('koa-static');
 
-let port = 5000;
-const resolve = file => path.resolve(__dirname, file);
-const isProduction = process.env.NODE_ENV === 'production';
-const template = fs.readFileSync(resolve('./src/index.ssr.html'), 'utf-8');
-
-const createRenderer = (bundle, options) => {
-  return require('vue-server-renderer').createBundleRenderer(
-    bundle,
-    Object.assign(options, {
-      template,
-      cache: require('lru-cache')({
-        max: 1000,
-        maxAge: 1000 * 60 * 15,
-      }),
-      basedir: resolve('./dist'),
-      runInNewContext: false,
-    }),
-  );
-};
+const port = 3000;
+const app = new Koa();
+const isProd = process.env.NODE_ENV === 'production';
+const template = readFileSync(resolve('./src/index.ssr.html'), 'utf-8');
 
 /**
- * Server static files
+ * SSR
  */
-const serve = (path, cache) =>
-  express.static(resolve(path), {
-    maxAge: cache && isProduction ? 60 * 60 * 24 * 30 : 0,
+const createRenderer = (bundle, options) => {
+  options = Object.assign(options, {
+    template,
+    cache: require('lru-cache')({
+      max: 1000,
+      maxAge: 1000 * 60 * 15,
+    }),
+    basedir: resolve('.'),
+    runInNewContext: false,
   });
+  return require('vue-server-renderer').createBundleRenderer(bundle, options);
+};
 
 let renderer;
 let readyPromise;
-if (isProduction) {
+if (isProd) {
   const bundle = require('./dist/vue-ssr-server-bundle.json');
   const clientManifest = require('./dist/vue-ssr-client-manifest.json');
   renderer = createRenderer(bundle, {
@@ -42,8 +36,7 @@ if (isProduction) {
   });
   readyPromise = Promise.resolve();
 } else {
-  port = 3000;
-  readyPromise = require('./build/ssr/server')(app, (bundle, options) => {
+  readyPromise = require('./build/ssr/devServer')(app, (bundle, options) => {
     renderer = createRenderer(bundle, options);
   });
 }
@@ -51,47 +44,60 @@ if (isProduction) {
 /**
  * Render page
  */
-const render = (req, res, context) => {
-  res.setHeader('Content-Type', 'text/html');
+const renderRoute = (ctx, context) => {
+  return new Promise(resolve => {
+    ctx.set('content-type', 'text/html');
 
-  const errorHandler = err => {
-    res.status(500);
-    res.end(`
-      500 | Fatal error: ${err}
-      <br>
-      <br>
-      <pre>${err.stack}</pre>
-    `);
-  };
+    const errorHandler = err => {
+      ctx.response.status = 500;
+      ctx.response.body = `
+        500 | Fatal error: ${err}
+        <br>
+        <br>
+        <pre>${err.stack}</pre>
+      `;
+    };
 
-  renderer.renderToString(context, (err, html) => {
-    if (err) return errorHandler(err);
-    res.status(200);
-    res.end(html);
+    renderer.renderToString(context, (err, html) => {
+      if (err) {
+        errorHandler(err);
+        return resolve();
+      }
+      ctx.response.status = 200;
+      ctx.response.body = html;
+      resolve();
+    });
   });
 };
 
 /**
- * Express middlewares
+ * Server
  */
-app.use(compression({ threshold: 0 }));
-app.use('/', serve('./dist', true));
-app.use('/static', serve('./dist/static', true));
+if (isProd) {
+  app.use(compress());
+  app.use(mount('/', serve('./dist')));
+  app.use(mount('/static', serve('./dist/static')));
+}
 
-app.get('*', (req, res) => {
-  const context = {
-    url: req.url,
-  };
-  isProduction ? render(req, res, context) : readyPromise.then(() => render(req, res, context));
+app.use(async ctx => {
+  const { url } = ctx;
+  const context = { url };
+
+  if (isProd) {
+    await renderRoute(ctx, context);
+  } else {
+    return readyPromise.then(() => renderRoute(ctx, context));
+  }
 });
 
-let server = app.listen(port, () => {
-  // console.log(`Server started at http://localhost:${port}`);
+const instance = app.listen(port, () => {
+  // eslint-disable-next-line
+  console.log(`Server started at http://localhost:${port}`);
 });
 
 module.exports = {
   ready: readyPromise,
   close: () => {
-    server.close();
+    instance.close();
   },
 };

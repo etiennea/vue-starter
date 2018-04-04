@@ -13,6 +13,8 @@ export default context => {
           return (
             component.asyncData &&
             component.asyncData({
+              ...context,
+              app,
               store,
               route: router.currentRoute,
             })

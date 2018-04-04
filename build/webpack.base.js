@@ -1,7 +1,6 @@
 const fs = require('fs');
 const { join } = require('path');
 const webpack = require('webpack');
-const HtmlPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // Base paths
@@ -69,8 +68,6 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: 'img/[name].[hash].[ext]',
-          publicPath: '/',
-          outputPath: '',
         },
       },
       {
@@ -84,9 +81,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlPlugin({
-      template: join(srcPath, 'index.html'),
-    }),
     new webpack.DefinePlugin({
       'process.ssr': project.ssr ? true : false,
       'process.env': JSON.stringify(envData),
