@@ -26,14 +26,21 @@
 ## Todo
 
 * Add polyfills for IE
+* CLI
+  * Clean dist files
+  * dev
+  * build
+  * start
 * SSR
   * Vue-meta
   * Store init middleware
-  * Errors pages
-  * Middlewares (ACL)
-  * Clean boot files
+  * Backend
+    * Errors pages
+    * Middlewares (ACL)
+  * Webpack plugins integration
+    * PWA / Workbox
+    * Critical CSS
   * Change project servers configs variables
-  * Critical CSS tests
 
 ## License
 

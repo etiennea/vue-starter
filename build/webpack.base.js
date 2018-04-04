@@ -9,9 +9,6 @@ const srcPath = join(rootPath, 'src');
 const assetsPath = join(rootPath, 'assets');
 const staticPath = join(rootPath, 'static');
 
-// Project config
-const project = require('../project');
-
 // Loaders
 const { babelLoader, tsLoader, vueLoader } = require('./loaders');
 
@@ -82,7 +79,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.ssr': project.ssr ? true : false,
+      'process.ssr': 'false',
       'process.env': JSON.stringify(envData),
       'process.env.NODE_ENV': `'${process.env.NODE_ENV}'`,
     }),

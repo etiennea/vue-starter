@@ -5,25 +5,11 @@ const Imagemin = require('imagemin-webpack-plugin').default;
 const CssExtract = require('mini-css-extract-plugin');
 const Preload = require('preload-webpack-plugin');
 const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const CriticalCSS = require('html-webpack-critical-plugin');
-const VueSSRClient = require('vue-server-renderer/client-plugin');
-const WebpackBar = require('webpackbar');
-const HtmlPlugin = require('html-webpack-plugin');
-
-// Base paths
-const rootPath = join(__dirname, '..');
-const srcPath = join(rootPath, 'src');
 
 // Project config
 const project = require('../project');
 
 const plugins = [
-  new HtmlPlugin({
-    template: join(srcPath, 'index.html'),
-  }),
-  new WebpackBar({
-    name: 'SPA: production',
-  }),
   new Imagemin({ test: /\.(jpe?g|png|gif|svg)$/i }),
   new CssExtract({
     filename: 'css/[name].[hash].css',
@@ -36,7 +22,6 @@ const plugins = [
     generateStatsFile: true,
     statsFilename: join(__dirname, '../tmp/stats.json'),
   }),
-  new CriticalCSS(),
 ];
 
 if (project.manifest) {
@@ -55,11 +40,6 @@ if (project.workbox) {
       swDest: 'sw.js',
     }),
   );
-}
-
-// SSR
-if (project.ssr) {
-  plugins.push(new VueSSRClient());
 }
 
 module.exports = plugins;

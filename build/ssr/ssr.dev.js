@@ -23,6 +23,7 @@ const serverConfig = merge(config, {
     }),
     new webpack.DefinePlugin({
       'process.env.VUE_ENV': "'server'",
+      'process.ssr': 'true',
       'process.client': 'false',
       'process.server': 'true',
     }),
