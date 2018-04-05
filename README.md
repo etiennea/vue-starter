@@ -38,20 +38,21 @@
 
 ## Todo
 
+* Store module system / Helper for decorators
+* Route change loading
+* SSR: asyncData with component data
 * Example
-* Store module system
-* SSR
-  * redirect()
-  * Route change loading
-  * Future
-    * asyncData with component data
+
+* Future
+  * SSR
+    * redirect()
     * Middlewares system
     * Error page
     * Layouts systems
-    * Dockerfile
-* Webpack cleaner
-  * Chain
-  * Extend in project config
+  * Dockerfile
+  * Webpack
+    * Chain
+    * Extend in project config
 
 ## License
 
