@@ -27,7 +27,6 @@
 
 ## Todo
 
-* Add polyfills for IE
 * Example
 * SPA loading
 * Store module system
