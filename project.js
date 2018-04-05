@@ -6,6 +6,9 @@ module.exports = {
    */
   head: {
     title: 'Vue App',
+    htmlAttrs: {
+      lang: 'en',
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -43,6 +46,14 @@ module.exports = {
    * Dev server options
    */
   devServer: {
+    port: 3000,
+    host: '127.0.0.1',
+  },
+
+  /**
+   * SSR config
+   */
+  ssr: {
     port: 3000,
     host: '127.0.0.1',
   },

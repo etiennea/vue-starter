@@ -1,83 +1,39 @@
 const { join } = require('path');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const config = require('./webpack.base');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
-const workboxPlugin = require('workbox-webpack-plugin');
-const ImageminWebpackPlugin = require('imagemin-webpack-plugin').default;
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const PreloadWebpackPlugin = require('preload-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const HtmlWebpackCriticalPlugin = require('html-webpack-critical-plugin');
+const CriticalCSS = require('html-webpack-critical-plugin');
+const WebpackBar = require('webpackbar');
+const HtmlPlugin = require('html-webpack-plugin');
 
-// Project config
-const project = require('../project');
+// Base paths
+const rootPath = join(__dirname, '..');
+const srcPath = join(rootPath, 'src');
 
 const prodConfig = merge(config, {
   devtool: '#source-map',
   mode: 'production',
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
+  },
   module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'postcss-loader', options: { sourceMap: true } },
-          { loader: 'sass-loader', options: { sourceMap: true } },
-        ],
-      },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          { loader: 'css-loader', options: { sourceMap: true } },
-          { loader: 'postcss-loader', options: { sourceMap: true } },
-        ],
-      },
-      {
-        test: /\.woff2?(\?.*)?$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: 'fonts/[name].[hash].[ext]',
-          },
-        },
-      },
-    ],
+    rules: [...require('./rules.prod')],
   },
   plugins: [
-    new ImageminWebpackPlugin({ test: /\.(jpe?g|png|gif|svg)$/i }),
-    new MiniCssExtractPlugin({
-      filename: 'css/[name].[hash].css',
-      chunkFilename: 'css/[id].[hash].css',
+    new webpack.DefinePlugin({
+      'process.client': 'true',
     }),
-    new BundleAnalyzerPlugin({
-      openAnalyzer: false,
-      analyzerMode: 'static',
-      reportFilename: join(__dirname, '../tmp/analyzer.html'),
-      generateStatsFile: true,
-      statsFilename: join(__dirname, '../tmp/stats.json'),
+    new WebpackBar({
+      name: 'SPA: production',
     }),
-    new HtmlWebpackCriticalPlugin(),
+    new HtmlPlugin({
+      template: join(srcPath, 'index.html'),
+    }),
+    ...require('./plugins.prod'),
+    new CriticalCSS(),
   ],
 });
-
-// PWA Manifest
-if (project.manifest) {
-  prodConfig.plugins.push(new WebpackPwaManifest(project.manifest));
-} else {
-  // Preload plugin
-  prodConfig.plugins.push(new PreloadWebpackPlugin());
-}
-
-// PWA Workbox
-if (project.workbox) {
-  prodConfig.plugins.push(
-    new workboxPlugin.InjectManifest({
-      swSrc: join(__dirname, '../src/sw.js'),
-      swDest: 'sw.js',
-    }),
-  );
-}
 
 module.exports = prodConfig;

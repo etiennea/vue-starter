@@ -1,10 +1,7 @@
 const fs = require('fs');
 const { join } = require('path');
 const webpack = require('webpack');
-const HtmlPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const CleanPlugin = require('clean-webpack-plugin');
-const WebpackBar = require('webpackbar');
 
 // Base paths
 const rootPath = join(__dirname, '..');
@@ -21,10 +18,13 @@ let envData = {};
 if (fs.existsSync(envPath)) {
   envData = require('dotenv').parse(fs.readFileSync(envPath));
 }
+envData.NODE_ENV = process.env.NODE_ENV;
 
 module.exports = {
   context: rootPath,
-  entry: join(srcPath, 'main.js'),
+  entry: {
+    app: join(srcPath, 'entry.client.js'),
+  },
   output: {
     path: join(rootPath, 'dist'),
     filename: 'js/[name].[hash].js',
@@ -41,7 +41,6 @@ module.exports = {
     alias: {
       '~': srcPath,
       '~~': rootPath,
-      '~layouts': join(srcPath, 'components/layouts'),
       assets: assetsPath,
       static: staticPath,
       vue$: 'vue/dist/vue.runtime.esm.js',
@@ -69,8 +68,6 @@ module.exports = {
         loader: 'file-loader',
         options: {
           name: 'img/[name].[hash].[ext]',
-          publicPath: '/',
-          outputPath: '',
         },
       },
       {
@@ -83,22 +80,10 @@ module.exports = {
       },
     ],
   },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-  },
   plugins: [
-    new WebpackBar(),
-    new CleanPlugin(['dist'], {
-      root: rootPath,
-    }),
-    new HtmlPlugin({
-      template: join(srcPath, 'index.html'),
-    }),
     new webpack.DefinePlugin({
-      NODE_ENV: process.env.NODE_ENV,
-      ...envData,
+      'process.env': JSON.stringify(envData),
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
     new webpack.NamedModulesPlugin(),
     new CopyWebpackPlugin([{ from: staticPath, to: 'static' }]),

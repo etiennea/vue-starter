@@ -4,10 +4,10 @@
 
 ## Features
 
-* Webpack 4
-* Vue class component with Babel 7 or TypeScript
-* Sass enabled by default
-* PWA & Workbox plugins
+* **Webpack 4**
+* Vue class component with **Babel 7** or **TypeScript**
+* **Sass** enabled by default
+* **PWA & Workbox** plugins
 * Vue plugins
   * vue-i18n
   * vue-meta
@@ -15,16 +15,48 @@
 * Webpack plugins
   * PostCSS with Autoprefixer & CSSNext
   * Imagemin
-  * Critical CSS
+  * **Critical CSS**
   * Dotenv integration
-* Units tests with Mocha & @vue/test-utils
-* E2E tests with Cypress
-* Linters (ESLint & Stylelint) and Prettier
+* Units tests with **Mocha & @vue/test-utils**
+* E2E tests with **Cypress**
+* **Linters** (ESLint & Stylelint) and **Prettier**
+* **SSR** support (work in progress)
+  * Koa & koa-webpack
+  * vuex & meta integration
+  * PWA, Workbox & Critical CSS
 
 ## Todo
 
-* Tests vue-loader@next
 * Add polyfills for IE
+* Simple CSS loader
+* Example
+* SPA loading
+* Store module system
+* Vue svg loader ?
+* CLI
+  * Clean dist files
+  * dev
+  * build
+  * start
+* SSR
+  * redirect()
+  * Change project servers configs variables
+  * Route change loading
+  * Future
+    * asyncData with component data
+    * Middlewares system
+    * Error page
+    * Layouts systems
+    * Dockerfile
+* Webpack cleaner
+  * Chain
+  * Extend in project config
+
+## Credits
+
+* [Evan You & VueJS core members](https://vuejs.org/)
+* [NuxtJS members](https://nuxtjs.org/)
+* [@crisbal and his great repo](https://github.com/crisbal/vue-webpack-ssr-fully-featured)
 
 ## License
 

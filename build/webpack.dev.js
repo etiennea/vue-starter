@@ -1,23 +1,27 @@
+const { join } = require('path');
+const webpack = require('webpack');
 const merge = require('webpack-merge');
 const config = require('./webpack.base');
-const { sassLoader } = require('./loaders');
+const WebpackBar = require('webpackbar');
+const HtmlPlugin = require('html-webpack-plugin');
+
+// Base paths
+const rootPath = join(__dirname, '..');
+const srcPath = join(rootPath, 'src');
 
 module.exports = merge(config, {
   module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        use: sassLoader,
-      },
-      {
-        test: /\.woff2?(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          options: {
-            mimetype: 'application/font-woff',
-          },
-        },
-      },
-    ],
+    rules: [...require('./rules.dev')],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.client': 'true',
+    }),
+    new HtmlPlugin({
+      template: join(srcPath, 'index.spa.html'),
+    }),
+    new WebpackBar({
+      name: 'SPA: development',
+    }),
+  ],
 });
