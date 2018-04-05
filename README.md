@@ -24,6 +24,17 @@
   * Koa & koa-webpack
   * vuex & meta integration
   * PWA, Workbox & Critical CSS
+* **CLI** with `dev`, `build` and `start` commands
+
+## Description
+
+**TODO**
+
+## Credits
+
+* [Evan You & VueJS core members](https://vuejs.org/)
+* [NuxtJS members](https://nuxtjs.org/)
+* [@crisbal and his great repo](https://github.com/crisbal/vue-webpack-ssr-fully-featured)
 
 ## Todo
 
@@ -31,10 +42,6 @@
 * SPA loading
 * Store module system
 * Vue svg loader ?
-* CLI
-  * dev
-  * build
-  * start
 * SSR
   * redirect()
   * Change project servers configs variables
@@ -48,12 +55,6 @@
 * Webpack cleaner
   * Chain
   * Extend in project config
-
-## Credits
-
-* [Evan You & VueJS core members](https://vuejs.org/)
-* [NuxtJS members](https://nuxtjs.org/)
-* [@crisbal and his great repo](https://github.com/crisbal/vue-webpack-ssr-fully-featured)
 
 ## License
 
