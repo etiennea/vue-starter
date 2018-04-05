@@ -39,7 +39,6 @@
 ## Todo
 
 * Example
-* SPA loading
 * Store module system
 * Vue svg loader ?
 * SSR

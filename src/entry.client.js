@@ -21,3 +21,7 @@ startApp({ app, router, store });
 import 'assets/scss/index.scss';
 import './layouts/DefaultLayout';
 import './components/NavBar';
+
+if (!process.ssr) {
+  document.querySelector('.spa-loading').remove();
+}

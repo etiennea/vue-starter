@@ -10,7 +10,7 @@ const assetsPath = join(rootPath, 'assets');
 const staticPath = join(rootPath, 'static');
 
 // Loaders
-const { babelLoader, tsLoader, vueLoader } = require('./loaders');
+const { babelLoader, tsLoader, vueLoader, htmlLoader } = require('./loaders');
 
 // Env file
 const envPath = join(rootPath, '.env');
@@ -77,6 +77,11 @@ module.exports = {
       {
         test: /\.ya?ml$/,
         use: [{ loader: 'json-loader' }, { loader: 'yaml-loader' }],
+      },
+      {
+        test: /\.html$/,
+        use: [htmlLoader],
+        exclude: [/index\.(spa|ssr)\.html/],
       },
     ],
   },
