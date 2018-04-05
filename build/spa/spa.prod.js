@@ -1,12 +1,12 @@
 const { join } = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const config = require('./webpack.base');
+const config = require('../webpack.base');
 const WebpackBar = require('webpackbar');
 const HtmlPlugin = require('html-webpack-plugin');
 
 // Base paths
-const rootPath = join(__dirname, '..');
+const rootPath = join(__dirname, '../..');
 const srcPath = join(rootPath, 'src');
 
 const prodConfig = merge(config, {
@@ -18,7 +18,7 @@ const prodConfig = merge(config, {
     },
   },
   module: {
-    rules: [...require('./rules.prod')],
+    rules: [...require('../rules.prod')],
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -30,7 +30,7 @@ const prodConfig = merge(config, {
     new HtmlPlugin({
       template: join(srcPath, 'index.spa.html'),
     }),
-    ...require('./plugins.prod'),
+    ...require('../plugins.prod'),
   ],
 });
 

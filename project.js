@@ -2,6 +2,25 @@ const path = require('path');
 
 module.exports = {
   /**
+   * Build mode
+   */
+  mode: 'spa',
+
+  /**
+   * Servers options
+   */
+  server: {
+    dev: {
+      port: 3000,
+      host: '127.0.0.1',
+    },
+    prod: {
+      port: 3000,
+      host: '127.0.0.1',
+    },
+  },
+
+  /**
    * Head
    */
   head: {

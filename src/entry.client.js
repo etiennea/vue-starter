@@ -18,6 +18,6 @@ startApp({ app, router, store });
 /**
  * App code
  */
-import '~~/scss/index.scss';
+import 'assets/scss/index.scss';
 import './layouts/DefaultLayout';
 import './components/NavBar';

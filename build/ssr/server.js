@@ -1,14 +1,24 @@
-const { resolve } = require('path');
+const { join } = require('path');
 const { readFileSync } = require('fs-extra');
 const Koa = require('koa');
 const compress = require('koa-compress');
 const mount = require('koa-mount');
 const serve = require('koa-static');
+const project = require('../../project');
 
 const buildContext = {};
-const port = 3000;
 const app = new Koa();
 const isProd = process.env.NODE_ENV === 'production';
+
+const rootPath = join(__dirname, '../..');
+
+let serverConfig;
+if (isProd) {
+  serverConfig = project.server.prod;
+} else {
+  serverConfig = project.server.dev;
+}
+const { host, port } = serverConfig;
 
 /**
  * SSR
@@ -19,7 +29,7 @@ const createRenderer = (bundle, options) => {
       max: 1000,
       maxAge: 1000 * 60 * 15,
     }),
-    basedir: resolve('.'),
+    basedir: rootPath,
     runInNewContext: false,
   });
   return require('vue-server-renderer').createBundleRenderer(bundle, options);
@@ -118,8 +128,7 @@ const renderRoute = (ctx, context) => {
  */
 if (isProd) {
   app.use(compress());
-  app.use(mount('/', serve('./dist')));
-  app.use(mount('/static', serve('./dist/static')));
+  app.use(mount('/', serve(join(rootPath, 'dist'))));
 }
 
 app.use(async ctx => {
@@ -133,9 +142,9 @@ app.use(async ctx => {
   }
 });
 
-const instance = app.listen(port, () => {
+const instance = app.listen(port, host, () => {
   // eslint-disable-next-line
-  console.log(`Server started at http://localhost:${port}`);
+  console.log(`Server started at http://${host}:${port}`);
 });
 
 module.exports = {
