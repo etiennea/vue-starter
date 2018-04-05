@@ -40,10 +40,8 @@
 
 * Example
 * Store module system
-* Vue svg loader ?
 * SSR
   * redirect()
-  * Change project servers configs variables
   * Route change loading
   * Future
     * asyncData with component data
