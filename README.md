@@ -32,7 +32,6 @@
 * Store module system
 * Vue svg loader ?
 * CLI
-  * Clean dist files
   * dev
   * build
   * start

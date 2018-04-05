@@ -18,6 +18,7 @@ module.exports = merge(config, {
     new WebpackBar({
       name: 'SSR: Client',
     }),
+    new webpack.NamedModulesPlugin(),
     new HtmlPlugin({
       template: join(srcPath, 'index.ssr.html'),
       filename: 'index.ssr.html',

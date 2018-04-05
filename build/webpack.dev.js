@@ -14,14 +14,15 @@ module.exports = merge(config, {
     rules: [...require('./rules.dev')],
   },
   plugins: [
+    new WebpackBar({
+      name: 'SPA: development',
+    }),
+    new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'process.client': 'true',
     }),
     new HtmlPlugin({
       template: join(srcPath, 'index.spa.html'),
-    }),
-    new WebpackBar({
-      name: 'SPA: development',
     }),
   ],
 });

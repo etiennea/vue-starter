@@ -85,7 +85,6 @@ module.exports = {
       'process.env': JSON.stringify(envData),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
-    new webpack.NamedModulesPlugin(),
     new CopyWebpackPlugin([{ from: staticPath, to: 'static' }]),
   ],
 };

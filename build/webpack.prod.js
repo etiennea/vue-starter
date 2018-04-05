@@ -2,7 +2,6 @@ const { join } = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const config = require('./webpack.base');
-const CriticalCSS = require('html-webpack-critical-plugin');
 const WebpackBar = require('webpackbar');
 const HtmlPlugin = require('html-webpack-plugin');
 
@@ -29,10 +28,9 @@ const prodConfig = merge(config, {
       name: 'SPA: production',
     }),
     new HtmlPlugin({
-      template: join(srcPath, 'index.html'),
+      template: join(srcPath, 'index.spa.html'),
     }),
     ...require('./plugins.prod'),
-    new CriticalCSS(),
   ],
 });
 
