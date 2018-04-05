@@ -28,7 +28,6 @@
 ## Todo
 
 * Add polyfills for IE
-* Simple CSS loader
 * Example
 * SPA loading
 * Store module system
