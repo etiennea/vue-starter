@@ -38,7 +38,6 @@
 
 ## Todo
 
-* Store module system / Helper for decorators
 * Route change loading
 * SSR: asyncData with component data
 * Example

@@ -10,6 +10,10 @@ if (process.env.NODE_ENV === 'development' && process.client) {
 export const startApp = context => {
   const { app, router, store } = context;
 
+  if (!process.ssr) {
+    store.dispatch('httpRequest', context);
+  }
+
   router.onReady(() => {
     /**
      * Handling asyncData() method
