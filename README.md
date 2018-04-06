@@ -38,13 +38,15 @@
 
 ## Todo
 
+* Friendly errors
 * Route change loading
-* SSR: asyncData with component data
+* SSR: asyncData with component data (wip)
 * Example
 
 * Future
   * SSR
-    * redirect()
+    * redirect function (wip)
+    * Plugins system (wip)
     * Middlewares system
     * Error page
     * Layouts systems
@@ -52,6 +54,7 @@
   * Webpack
     * Chain
     * Extend in project config
+    * SSR with wabpack MulticCompiler / parallel-webpack
 
 ## License
 
