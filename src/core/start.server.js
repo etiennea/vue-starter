@@ -1,9 +1,9 @@
-export const startApp = ({ app, router, store, context }) => {
+export const startApp = ({ app, router, store, ssrContext }) => {
   return new Promise((resolve, reject) => {
     // Attach meta for SSR
-    context.meta = app.$meta();
+    ssrContext.meta = app.$meta();
 
-    router.push(context.url);
+    router.push(ssrContext.url);
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents();
       Promise.all(
@@ -11,16 +11,17 @@ export const startApp = ({ app, router, store, context }) => {
           return (
             component.asyncData &&
             component.asyncData({
-              ...context,
+              ...ssrContext,
               app,
               store,
+              router,
               route: router.currentRoute,
             })
           );
         }),
       )
         .then(() => {
-          context.state = store.state;
+          ssrContext.state = store.state;
           resolve(app);
         })
         .catch(reject);

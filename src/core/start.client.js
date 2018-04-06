@@ -7,7 +7,13 @@ if (process.env.NODE_ENV === 'development' && process.client) {
   require('tota11y/build/tota11y.min');
 }
 
-export const startApp = ({ app, router, store }) => {
+export const startApp = context => {
+  const { app, router, store } = context;
+
+  if (!process.ssr) {
+    store.dispatch('httpRequest', context);
+  }
+
   router.onReady(() => {
     /**
      * Handling asyncData() method
@@ -29,7 +35,7 @@ export const startApp = ({ app, router, store }) => {
         activated.map(c => {
           if (c.asyncData) {
             return c.asyncData({
-              store,
+              ...context,
               route: to,
             });
           }

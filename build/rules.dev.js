@@ -1,6 +1,10 @@
-const { sassLoader } = require('./loaders');
+const { sassLoader, cssLoader } = require('./loaders');
 
 const rules = [
+  {
+    test: /\.css$/,
+    use: cssLoader,
+  },
   {
     test: /\.scss$/,
     use: sassLoader,

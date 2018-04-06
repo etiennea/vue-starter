@@ -4,11 +4,9 @@
   "description": "Vue Stater: A personnal Vue starter",
   "main": "src/index.js",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development webpack-serve --config build/webpack.dev",
-    "dev:ssr": "cross-env NODE_ENV=development node server",
-    "start": "serve dist/",
-    "start:ssr": "cross-env NODE_ENV=production node server",
-    "build": "cross-env NODE_ENV=production node builder",
+    "dev": "cross-env NODE_ENV=development ./cli dev",
+    "build": "cross-env NODE_ENV=production ./cli build",
+    "start": "cross-env NODE_ENV=production ./cli start",
     "lint": "eslint --ext .js,.vue,.ts --fix --ignore-path .gitignore src",
     "stylelint": "stylelint scss/**/*.scss",
     "format": "prettier --ignore-path .gitignore --write ./**/*.{js,ts,vue} src",
@@ -38,7 +36,6 @@
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.11",
     "cssnano": "^3.10.0",
-    "cypress": "^2.1.0",
     "dotenv": "^5.0.1",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
@@ -47,13 +44,13 @@
     "eslint-plugin-vue": "^4.4.0",
     "file-loader": "^1.1.11",
     "fs-extra": "^5.0.0",
+    "html-loader": "^0.5.5",
     "html-webpack-critical-plugin": "^1.0.3",
     "html-webpack-plugin": "^3.1.0",
     "imagemin-webpack-plugin": "^2.1.1",
     "jsdom": "^11.7.0",
     "jsdom-global": "^3.0.2",
     "json-loader": "^0.5.7",
-    "koa": "^2.5.0",
     "koa-webpack": "^3.0.2",
     "mini-css-extract-plugin": "^0.4.0",
     "mocha": "^5.0.5",
@@ -64,12 +61,10 @@
     "preload-webpack-plugin": "^3.0.0-alpha.1",
     "prettier": "^1.11.1",
     "sass-loader": "^6.0.7",
-    "serve": "^6.5.3",
     "style-loader": "^0.20.3",
     "stylelint": "^9.2.0",
     "stylelint-config-recommended-scss": "^3.2.0",
     "stylelint-scss": "^3.0.0",
-    "thread-loader": "^1.1.5",
     "tota11y": "^0.1.6",
     "ts-loader": "^4.1.0",
     "typescript": "^2.8.1",
@@ -89,6 +84,8 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.43",
+    "commander": "^2.15.1",
+    "koa": "^2.5.0",
     "koa-compress": "^2.0.0",
     "koa-mount": "^3.0.0",
     "koa-static": "^4.0.2",
@@ -103,5 +100,8 @@
     "vuelidate": "^0.6.2",
     "vuex": "^3.0.1",
     "vuex-class": "^0.3.0"
+  },
+  "peerDependencies": {
+    "cypress": "^2.1.0"
   }
 }

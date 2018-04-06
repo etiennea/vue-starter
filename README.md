@@ -24,39 +24,34 @@
   * Koa & koa-webpack
   * vuex & meta integration
   * PWA, Workbox & Critical CSS
+* **CLI** with `dev`, `build` and `start` commands
 
-## Todo
+## Description
 
-* Add polyfills for IE
-* Simple CSS loader
-* Example
-* SPA loading
-* Store module system
-* Vue svg loader ?
-* CLI
-  * Clean dist files
-  * dev
-  * build
-  * start
-* SSR
-  * redirect()
-  * Change project servers configs variables
-  * Route change loading
-  * Future
-    * asyncData with component data
-    * Middlewares system
-    * Error page
-    * Layouts systems
-    * Dockerfile
-* Webpack cleaner
-  * Chain
-  * Extend in project config
+**TODO**
 
 ## Credits
 
 * [Evan You & VueJS core members](https://vuejs.org/)
 * [NuxtJS members](https://nuxtjs.org/)
 * [@crisbal and his great repo](https://github.com/crisbal/vue-webpack-ssr-fully-featured)
+
+## Todo
+
+* Route change loading
+* SSR: asyncData with component data
+* Example
+
+* Future
+  * SSR
+    * redirect()
+    * Middlewares system
+    * Error page
+    * Layouts systems
+  * Dockerfile
+  * Webpack
+    * Chain
+    * Extend in project config
 
 ## License
 

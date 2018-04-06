@@ -3,13 +3,14 @@ import './core';
 import { createApp } from './core';
 import { startApp } from './core/start.server';
 
-export default async context => {
+export default async ssrContext => {
   // Create app
-  const { app, router, store } = createApp(context);
+  const context = createApp(ssrContext);
+  context.ssrContext = ssrContext;
 
   // Store init function
-  await store.dispatch('httpRequest', app.context);
+  await context.store.dispatch('httpRequest', context);
 
   // Start application
-  return startApp({ app, router, store, context });
+  return startApp(context);
 };

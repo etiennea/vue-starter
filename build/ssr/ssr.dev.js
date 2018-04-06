@@ -23,6 +23,7 @@ const serverConfig = merge(config, {
       name: 'SSR: Server',
       color: 'orange',
     }),
+    new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       'process.ssr': 'true',
       'process.server': 'true',
