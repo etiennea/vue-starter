@@ -1,7 +1,8 @@
 /**
  * HMR
  */
-if (process.env.NODE_ENV === 'development' && process.client) if (module.hot) module.hot.accept();
+if (process.env.NODE_ENV === 'development' && process.client)
+  if (module.hot) module.hot.accept();
 
 /**
  * Vue start
