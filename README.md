@@ -41,15 +41,16 @@
 * Friendly errors
 * Route change loading
 * SSR: asyncData with component data (wip)
+* Erro page
 * Example
+* Use consola
 
 * Future
   * SSR
     * redirect function (wip)
     * Plugins system (wip)
     * Middlewares system
-    * Error page
-    * Layouts systems
+    * Layouts system
   * Dockerfile
   * Webpack
     * Chain
