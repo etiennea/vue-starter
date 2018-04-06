@@ -45,9 +45,13 @@ if (isProd) {
   });
   readyPromise = Promise.resolve();
 } else {
-  readyPromise = require('./devServer')(app, buildContext, (bundle, options) => {
-    renderer = createRenderer(bundle, options);
-  });
+  readyPromise = require('./devServer')(
+    app,
+    buildContext,
+    (bundle, options) => {
+      renderer = createRenderer(bundle, options);
+    },
+  );
 }
 
 /**
@@ -70,7 +74,12 @@ const htmlBuilder = async (context, html) => {
   } = context.meta.inject();
 
   const head =
-    meta.text() + title.text() + link.text() + style.text() + script.text() + noscript.text();
+    meta.text() +
+    title.text() +
+    link.text() +
+    style.text() +
+    script.text() +
+    noscript.text();
 
   const body = html + script.text(bodyOpt) + context.renderState();
 

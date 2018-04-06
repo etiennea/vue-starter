@@ -8,5 +8,13 @@ devServer({
   config,
   host,
   port,
-  stats: config.stats,
+  stats: false,
+  logLevel: 'silent',
+  dev: {
+    logLevel: 'silent',
+    quiet: true,
+  },
+  hot: {
+    logLevel: 'silent',
+  },
 });

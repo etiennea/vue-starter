@@ -4,6 +4,10 @@ const merge = require('webpack-merge');
 const config = require('../webpack.base');
 const WebpackBar = require('webpackbar');
 const HtmlPlugin = require('html-webpack-plugin');
+const FriendlyErrors = require('friendly-errors-webpack-plugin');
+
+const project = require('../../project');
+const { host, port } = project.server.dev;
 
 // Base paths
 const rootPath = join(__dirname, '../..');
@@ -16,6 +20,11 @@ module.exports = merge(config, {
   plugins: [
     new WebpackBar({
       name: 'SPA: development',
+    }),
+    new FriendlyErrors({
+      compilationSuccessInfo: {
+        messages: [`Server running: http://${host}:${port}`],
+      },
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({

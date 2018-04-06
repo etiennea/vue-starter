@@ -12,7 +12,10 @@ module.exports = program => {
 
       // Prepare compiler
       if (ssr) {
-        compiler = webpack([require('../ssr/client.prod'), require('../ssr/ssr.prod')]);
+        compiler = webpack([
+          require('../ssr/client.prod'),
+          require('../ssr/ssr.prod'),
+        ]);
       } else {
         compiler = webpack(require('../spa/spa.prod'));
       }

@@ -22,7 +22,6 @@ module.exports = function setupDevServer(app, buildContext, cb) {
 
   // Config for dev middleware
   clientConfig.entry = values(clientConfig.entry);
-  serverConfig.entry = [serverConfig.entry];
   clientConfig.output.filename = '[name].js';
   clientConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
 
@@ -34,7 +33,10 @@ module.exports = function setupDevServer(app, buildContext, cb) {
   // Compilation done
   const onClientDone = () => {
     const readFile = file =>
-      mfsClient.readFileSync(path.join(clientConfig.output.path, file), 'utf-8');
+      mfsClient.readFileSync(
+        path.join(clientConfig.output.path, file),
+        'utf-8',
+      );
     clientManifest = JSON.parse(readFile('vue-ssr-client-manifest.json'));
 
     buildContext.indexHTML = mfsClient.readFileSync(
@@ -52,12 +54,16 @@ module.exports = function setupDevServer(app, buildContext, cb) {
   // Add middleware to app
   const devMiddleware = koaWebpack({
     compiler: clientCompiler,
-    hot: true,
+    hot: {
+      logLevel: 'silent',
+    },
     dev: {
       serverSideRender: true,
       publicPath: clientConfig.output.publicPath,
+      quite: true,
       noInfo: true,
-      stats: 'none',
+      stats: false,
+      logLevel: 'silent',
     },
   });
   app.use(devMiddleware);
@@ -73,7 +79,8 @@ module.exports = function setupDevServer(app, buildContext, cb) {
     stats.errors.forEach(err => console.error(err));
     stats.warnings.forEach(err => console.warn(err));
 
-    const readFile = file => mfs.readFileSync(path.join(clientConfig.output.path, file), 'utf-8');
+    const readFile = file =>
+      mfs.readFileSync(path.join(clientConfig.output.path, file), 'utf-8');
     serverBundle = JSON.parse(readFile('vue-ssr-server-bundle.json'));
     if (clientManifest) {
       ready(serverBundle, { clientManifest });

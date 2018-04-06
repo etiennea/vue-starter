@@ -4,6 +4,7 @@ const merge = require('webpack-merge');
 const config = require('../webpack.base');
 const WebpackBar = require('webpackbar');
 const HtmlPlugin = require('html-webpack-plugin');
+const FriendlyErrors = require('friendly-errors-webpack-plugin');
 
 // Base paths
 const rootPath = join(__dirname, '../..');
@@ -27,6 +28,7 @@ const prodConfig = merge(config, {
     new WebpackBar({
       name: 'SPA: production',
     }),
+    new FriendlyErrors(),
     new HtmlPlugin({
       template: join(srcPath, 'index.spa.html'),
     }),

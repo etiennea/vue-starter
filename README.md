@@ -38,12 +38,10 @@
 
 ## Todo
 
-* Friendly errors
 * Route change loading
 * SSR: asyncData with component data (wip)
-* Erro page
+* Error page
 * Example
-* Use consola
 
 * Future
   * SSR
@@ -55,7 +53,7 @@
   * Webpack
     * Chain
     * Extend in project config
-    * SSR with wabpack MulticCompiler / parallel-webpack
+    * SSR dev with wabpack MulticCompiler
 
 ## License
 
