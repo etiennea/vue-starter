@@ -9,6 +9,8 @@
 * **Sass** enabled by default
 * **PWA & Workbox** plugins
 * Vue plugins
+  * vue-router
+  * vuex
   * vue-i18n
   * vue-meta
   * vuelidate
@@ -23,7 +25,7 @@
 * **SSR** support (work in progress)
   * Koa & koa-webpack
   * vuex & meta integration
-  * PWA, Workbox & Critical CSS
+  * PWA, Workbox & Critical CSS support
 * **CLI** with `dev`, `build` and `start` commands
 
 ## Description
@@ -43,17 +45,27 @@
 * Error page
 * Example
 
+* Cleaning
+
+  * Core
+    * Helpers `vueclass`, `vuets` and `storeModule` with aliases
+    * Better entry files with async support
+    * Vue plugins folder
+    * Workbox move to main index
+    * Project config defaults
+    * Move htmls to core
+  * Webpack
+    * Function to get rules & plugins
+    * SSR dev mode with MultiCompiler
+
 * Future
   * SSR
-    * redirect function (wip)
+    * Redirect function (wip)
     * Plugins system (wip)
     * Middlewares system
-    * Layouts system
   * Dockerfile
-  * Webpack
-    * Chain
-    * Extend in project config
-    * SSR dev with wabpack MulticCompiler
+  * Webpack: extend with in project config
+  * Yeoman generator
 
 ## License
 

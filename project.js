@@ -2,25 +2,6 @@ const path = require('path');
 
 module.exports = {
   /**
-   * Build mode
-   */
-  mode: 'spa',
-
-  /**
-   * Servers options
-   */
-  server: {
-    dev: {
-      port: 3000,
-      host: '127.0.0.1',
-    },
-    prod: {
-      port: 3000,
-      host: '127.0.0.1',
-    },
-  },
-
-  /**
    * Head
    */
   head: {
@@ -62,18 +43,16 @@ module.exports = {
   workbox: true,
 
   /**
-   * Dev server options
+   * Servers options
    */
-  devServer: {
-    port: 3000,
-    host: '127.0.0.1',
-  },
-
-  /**
-   * SSR config
-   */
-  ssr: {
-    port: 3000,
-    host: '127.0.0.1',
+  server: {
+    dev: {
+      port: 3000,
+      host: '127.0.0.1',
+    },
+    prod: {
+      port: 3000,
+      host: '127.0.0.1',
+    },
   },
 };
