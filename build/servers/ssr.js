@@ -1,16 +1,15 @@
-const { join } = require('path');
 const { readFileSync } = require('fs-extra');
 const Koa = require('koa');
 const compress = require('koa-compress');
 const mount = require('koa-mount');
 const serve = require('koa-static');
-const project = require('../../project');
+const { getProject, getPath } = require('../utils');
+
+const project = getProject();
 
 const buildContext = {};
 const app = new Koa();
 const isProd = process.env.NODE_ENV === 'production';
-
-const rootPath = join(__dirname, '../..');
 
 let serverConfig;
 if (isProd) {
@@ -29,7 +28,7 @@ const createRenderer = (bundle, options) => {
       max: 1000,
       maxAge: 1000 * 60 * 15,
     }),
-    basedir: rootPath,
+    basedir: getPath(),
     runInNewContext: false,
   });
   return require('vue-server-renderer').createBundleRenderer(bundle, options);
@@ -38,14 +37,17 @@ const createRenderer = (bundle, options) => {
 let renderer;
 let readyPromise;
 if (isProd) {
-  const bundle = require('./dist/vue-ssr-server-bundle.json');
-  const clientManifest = require('./dist/vue-ssr-client-manifest.json');
+  const bundle = require(getPath('vue-ssr-server-bundle.json', 'dist'));
+  const clientManifest = require(getPath(
+    'vue-ssr-client-manifest.json',
+    'dist',
+  ));
   renderer = createRenderer(bundle, {
     clientManifest,
   });
   readyPromise = Promise.resolve();
 } else {
-  readyPromise = require('./devServer')(
+  readyPromise = require('./ssr.dev-middleware')(
     app,
     buildContext,
     (bundle, options) => {
@@ -94,7 +96,10 @@ const htmlBuilder = async (context, html) => {
 
 // In production mode get index.ssr.html file content
 if (isProd) {
-  buildContext.indexHTML = readFileSync('./dist/index.ssr.html', 'utf-8');
+  buildContext.indexHTML = readFileSync(
+    getPath('index.ssr.html', 'dist'),
+    'utf-8',
+  );
 }
 
 /**
@@ -131,7 +136,7 @@ const renderRoute = (ctx, context) => {
  */
 if (isProd) {
   app.use(compress());
-  app.use(mount('/', serve(join(rootPath, 'dist'))));
+  app.use(mount('/', serve(getPath('', 'dist'))));
 }
 
 app.use(async ctx => {

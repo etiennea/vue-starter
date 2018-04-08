@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const webpack = require('webpack');
-const baseConfig = require('../webpack.base');
+const getConfig = require('../webpack.config');
 
 module.exports = program => {
   program
@@ -10,14 +10,32 @@ module.exports = program => {
     .action(({ ssr }) => {
       let compiler;
 
-      // Prepare compiler
+      let baseConfig;
+
+      // Prepare copiler
       if (ssr) {
+        // SSR
+        baseConfig = getConfig({
+          dev: false,
+          client: true,
+          ssr: true,
+        });
         compiler = webpack([
-          require('../ssr/client.prod'),
-          require('../ssr/ssr.prod'),
+          baseConfig,
+          getConfig({
+            dev: false,
+            client: false,
+            ssr: true,
+          }),
         ]);
       } else {
-        compiler = webpack(require('../spa/spa.prod'));
+        // SPA
+        baseConfig = getConfig({
+          dev: false,
+          client: true,
+          ssr: false,
+        });
+        compiler = webpack(baseConfig);
       }
 
       // Clean

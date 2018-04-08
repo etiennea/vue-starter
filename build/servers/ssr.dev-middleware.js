@@ -1,10 +1,20 @@
 const path = require('path');
 const webpack = require('webpack');
 const MFS = require('memory-fs');
-const clientConfig = require('./client.dev');
-const serverConfig = require('./ssr.dev');
 const koaWebpack = require('koa-webpack');
 const values = require('lodash/values');
+const getConfig = require('../webpack.config');
+
+const clientConfig = getConfig({
+  dev: true,
+  client: true,
+  ssr: true,
+});
+const serverConfig = getConfig({
+  dev: true,
+  client: false,
+  ssr: true,
+});
 
 module.exports = function setupDevServer(app, buildContext, cb) {
   let serverBundle;

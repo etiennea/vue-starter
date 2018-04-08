@@ -1,9 +1,9 @@
-const path = require('path');
+const { getPath } = require('../../utils');
 
 const cacheLoader = {
   loader: 'cache-loader',
   options: {
-    cacheDirectory: path.resolve(__dirname, '../../tmp/cache'),
+    cacheDirectory: getPath('.tmp/cache-loader'),
   },
 };
 

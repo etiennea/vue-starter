@@ -1,11 +1,11 @@
 const devServer = require('webpack-serve');
-const config = require('../spa/spa.dev');
-const project = require('../../project');
+const getConfig = require('../webpack.config');
+const { getServerOptions } = require('../utils');
 
-const { host, port } = project.server.dev;
+const { host, port } = getServerOptions(true);
 
 devServer({
-  config,
+  config: getConfig(),
   host,
   port,
   stats: false,
