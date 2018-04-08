@@ -1,5 +1,3 @@
-import './pwa';
-
 /**
  * Tota11y
  */

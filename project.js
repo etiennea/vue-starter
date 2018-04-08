@@ -41,18 +41,4 @@ module.exports = {
    * Workbox enable
    */
   workbox: true,
-
-  /**
-   * Servers options
-   */
-  server: {
-    dev: {
-      port: 3000,
-      host: '127.0.0.1',
-    },
-    prod: {
-      port: 3000,
-      host: '127.0.0.1',
-    },
-  },
 };

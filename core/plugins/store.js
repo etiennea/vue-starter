@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import * as baseStore from '../store';
+import * as baseStore from '~/store';
 
 Vue.use(Vuex);
 

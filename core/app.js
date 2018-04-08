@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import App from './App';
 
-import './meta';
-import { createRouter } from './router';
-import { createStore } from './store';
-import { createI18n } from './i18n';
+import './plugins/meta';
+import { createRouter } from './plugins/router';
+import { createStore } from './plugins/store';
+import { createI18n } from './plugins/i18n';
 
-export function createApp(ssrContext) {
+export function createApp(httpContext) {
   const router = createRouter();
   const store = createStore();
   const i18n = createI18n();
@@ -15,7 +15,7 @@ export function createApp(ssrContext) {
     router,
     store,
     i18n,
-    ssrContext,
+    httpContext,
     render: h => h(App),
   });
 

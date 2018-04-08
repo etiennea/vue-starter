@@ -1,4 +1,4 @@
-import { Action, Getter, Mutation, State, namespace } from '~/vueclass';
+import { Action, Getter, Mutation, State, namespace } from 'vueclass';
 
 export default name => {
   return {
