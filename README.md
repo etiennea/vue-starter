@@ -44,7 +44,6 @@
 * SSR: asyncData with component data (wip)
 * Error page
 * Example
-* SSR dev mode with MultiCompiler
 
 * Future
   * SSR

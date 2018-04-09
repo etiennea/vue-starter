@@ -22,4 +22,4 @@ if (process.client && 'serviceWorker' in navigator) {
  * Init function
  */
 // eslint-disable-next-line
-export default async ({ app, store, router }) => {};
+export default async ({ app, store, router, http }) => {};
