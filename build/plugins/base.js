@@ -23,7 +23,7 @@ module.exports = (BUILD = getDefaultBuildOptions()) => {
       'process.env': JSON.stringify(envData),
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
-    new CopyWebpackPlugin([{ from: getPath('assets/static'), to: 'static' }]),
+    new CopyWebpackPlugin([{ from: getPath('static'), to: 'static' }]),
     new webpack.NamedModulesPlugin(),
   ];
 };

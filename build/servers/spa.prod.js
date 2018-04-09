@@ -8,7 +8,7 @@ const { host, port } = getServerOptions(false);
 
 const app = new Koa();
 app.use(compress());
-app.use(mount('/', serve(getPath('', 'dist'))));
+app.use(mount('/', serve(getPath('app', 'dist'))));
 
 const instance = app.listen(port, host, () => {
   // eslint-disable-next-line

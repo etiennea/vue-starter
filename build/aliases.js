@@ -8,7 +8,7 @@ module.exports = {
   '~': getPath('app'),
   '~~': getPath(),
   assets: getPath('assets'),
-  static: getPath('assets/static'),
+  static: getPath('static'),
 
   // Helpers
   vueclass: getPath('helpers/vueclass.js', 'core'),

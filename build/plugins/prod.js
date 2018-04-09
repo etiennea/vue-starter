@@ -39,11 +39,15 @@ module.exports = (BUILD = getDefaultBuildOptions()) => {
     }
 
     // PWA Workbox
-    if (project.workbox) {
+    if (project.manifest && project.workbox) {
       plugins.push(
         new Workbox.InjectManifest({
           swSrc: getPath('service-worker.js', 'app'),
           swDest: 'service-worker.js',
+          templatedUrls: {
+            '/': 'index.ssr.html',
+            '/index.html': 'index.ssr.html',
+          },
         }),
       );
     }

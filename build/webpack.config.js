@@ -9,7 +9,7 @@ module.exports = (BUILD = getDefaultBuildOptions()) => {
     context: getPath('.'),
     entry: { app: getPath('entry/client.js', 'core') },
     output: {
-      path: getPath('dist'),
+      path: getPath('dist/app'),
       filename: 'js/[name].[hash].js',
       publicPath: '/',
     },
@@ -56,7 +56,11 @@ module.exports = (BUILD = getDefaultBuildOptions()) => {
   if (BUILD.ssr) {
     // Client side
     if (BUILD.client) {
-      config.plugins.push(new VueSSRClientPlugin());
+      config.plugins.push(
+        new VueSSRClientPlugin({
+          filename: '../vue-ssr-client-manifest.json',
+        }),
+      );
 
       // Server side
     } else {

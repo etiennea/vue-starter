@@ -1,11 +1,14 @@
 import Vue from 'vue';
-import Component from 'vue-class-component';
+import Component, { mixins, createDecorator } from 'vue-class-component';
 
-export { Vue, Component };
+export { Vue, Component, mixins, createDecorator };
 export * from 'vue-property-decorator';
 export * from 'vuex-class';
 
-// @TODO: mixins
-// @TODO: router hooks
-
-Component.registerHooks(['asyncData', 'head']);
+Component.registerHooks([
+  'beforeRouteEnter',
+  'beforeRouteUpdate',
+  'beforeRouteLeave',
+  'asyncData',
+  'head',
+]);

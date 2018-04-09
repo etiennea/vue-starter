@@ -97,7 +97,7 @@ const htmlBuilder = async (context, html) => {
 // In production mode get index.ssr.html file content
 if (isProd) {
   buildContext.indexHTML = readFileSync(
-    getPath('index.ssr.html', 'dist'),
+    getPath('app/index.ssr.html', 'dist'),
     'utf-8',
   );
 }
@@ -136,7 +136,7 @@ const renderRoute = (ctx, context) => {
  */
 if (isProd) {
   app.use(compress());
-  app.use(mount('/', serve(getPath('', 'dist'))));
+  app.use(mount('/', serve(getPath('app', 'dist'))));
 }
 
 app.use(async ctx => {

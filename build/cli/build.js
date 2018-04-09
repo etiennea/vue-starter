@@ -1,6 +1,7 @@
 const fs = require('fs-extra');
 const webpack = require('webpack');
 const getConfig = require('../webpack.config');
+const { getPath } = require('../utils');
 
 module.exports = program => {
   program
@@ -39,7 +40,7 @@ module.exports = program => {
       }
 
       // Clean
-      fs.removeSync(baseConfig.output.path);
+      fs.removeSync(getPath('', 'dist'));
 
       // Run compiler
       compiler.run((err, stats) => {

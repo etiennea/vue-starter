@@ -47,7 +47,7 @@ module.exports = function setupDevServer(app, buildContext, cb) {
         path.join(clientConfig.output.path, file),
         'utf-8',
       );
-    clientManifest = JSON.parse(readFile('vue-ssr-client-manifest.json'));
+    clientManifest = JSON.parse(readFile('../vue-ssr-client-manifest.json'));
 
     buildContext.indexHTML = mfsClient.readFileSync(
       path.join(clientConfig.output.path, 'index.ssr.html'),
@@ -91,7 +91,7 @@ module.exports = function setupDevServer(app, buildContext, cb) {
 
     const readFile = file =>
       mfs.readFileSync(path.join(clientConfig.output.path, file), 'utf-8');
-    serverBundle = JSON.parse(readFile('vue-ssr-server-bundle.json'));
+    serverBundle = JSON.parse(readFile('../vue-ssr-server-bundle.json'));
     if (clientManifest) {
       ready(serverBundle, { clientManifest });
     }
