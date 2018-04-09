@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { getComponentAsyncData, applyAsyncData } from './asyncData';
+import { resolveComponents } from './asyncData';
 
 /**
  * Tota11y
@@ -11,25 +11,25 @@ if (process.env.NODE_ENV === 'development' && process.client) {
 /**
  * asyncData from server
  */
-if (process.ssr) {
-  Vue.mixin({
-    created() {
+Vue.mixin({
+  created() {
+    if (process.ssr) {
       if (this.$router && window.__DATA__) {
         const matched = this.$router.getMatchedComponents();
         if (!matched.length) return;
         matched.forEach((component, i) => {
           component.extendOptions.__DATA__ = window.__DATA__.components[i];
         });
-        // window.__DATA__ = null;
+        window.__DATA__ = null;
       }
+    }
 
-      const ctor = this.constructor;
-      if (ctor.extendOptions && ctor.extendOptions.asyncData) {
-        Object.assign(this.$data, ctor.extendOptions.__DATA__);
-      }
-    },
-  });
-}
+    const ctor = this.constructor;
+    if (ctor.extendOptions && ctor.extendOptions.asyncData) {
+      Object.assign(this.$data, ctor.extendOptions.__DATA__);
+    }
+  },
+});
 
 /**
  * Start application
@@ -57,26 +57,20 @@ export const startApp = async context => {
       return next();
     }
 
-    Promise.all(
-      activated.map(component => {
-        if (component.options.asyncData) {
-          return getComponentAsyncData(component, {
-            ...context,
-            route: to,
-          }).then(data => {
-            if (data) applyAsyncData(component, data);
-            return data;
-          });
-        }
-      }),
-    )
+    resolveComponents(to, activated, context)
       .then(() => {
         next();
       })
       .catch(next);
   });
 
-  router.onReady(() => {
+  router.onReady(async () => {
+    // SPA call fisrt asyncData
+    if (!process.ssr) {
+      const components = router.getMatchedComponents();
+      await resolveComponents(router.currentRoute, components, context);
+    }
+
     /**
      * Mount app
      */

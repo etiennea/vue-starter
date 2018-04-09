@@ -34,3 +34,19 @@ export const getComponentAsyncData = async (component, context) => {
 
   return value;
 };
+
+export const resolveComponents = (route, components, context) => {
+  return Promise.all(
+    components.map(component => {
+      if (component.options.asyncData) {
+        return getComponentAsyncData(component, {
+          ...context,
+          route,
+        }).then(data => {
+          if (data) applyAsyncData(component, data);
+          return data;
+        });
+      }
+    }),
+  );
+};

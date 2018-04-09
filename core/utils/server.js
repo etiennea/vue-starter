@@ -1,4 +1,4 @@
-import { getComponentAsyncData, applyAsyncData } from './asyncData';
+import { resolveComponents } from './asyncData';
 
 /**
  * Start application
@@ -16,14 +16,7 @@ export const startApp = async context => {
     router.push(http.url);
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents();
-      Promise.all(
-        matchedComponents.map(component => {
-          return getComponentAsyncData(component, context).then(data => {
-            applyAsyncData(component, data);
-            return data;
-          });
-        }),
-      )
+      resolveComponents(router.currentRoute, matchedComponents, context)
         .then(data => {
           http.asyncData = data;
           http.state = store.state;
