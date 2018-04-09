@@ -21,9 +21,3 @@ import initApp from '~/';
   // Start application
   return startApp(context);
 })();
-
-// Remove loader in SPA mode
-if (!process.ssr) {
-  const loader = document.querySelector('.spa-loading');
-  if (loader) loader.remove();
-}

@@ -83,7 +83,12 @@ const htmlBuilder = async (context, html) => {
     script.text() +
     noscript.text();
 
-  const body = html + script.text(bodyOpt) + context.renderState();
+  let body = html + script.text(bodyOpt);
+
+  body += `<script>window.__DATA__=${JSON.stringify({
+    state: context.state,
+    components: context.asyncData,
+  })}</script>`;
 
   let result = template
     .replace(/data-html-attrs(="")?/, htmlAttrs.text())

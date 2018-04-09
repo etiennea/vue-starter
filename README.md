@@ -40,9 +40,8 @@
 
 ## Todo
 
-* Route change loading
 * SSR: asyncData with component data (wip)
-* Error page
+* SSR: Error page
 * Example
 
 * Future
@@ -50,6 +49,7 @@
     * Redirect function (wip)
     * Plugins system (wip)
     * Middlewares system
+    * Layouts system
   * Dockerfile
   * Webpack: extend with in project config
   * Yeoman generator

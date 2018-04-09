@@ -1,4 +1,6 @@
-export const startApp = ({ app, router, store, http }) => {
+export const startApp = async context => {
+  const { app, router, store, http } = context;
+
   return new Promise((resolve, reject) => {
     // Attach meta for SSR
     http.meta = app.$meta();
@@ -11,10 +13,7 @@ export const startApp = ({ app, router, store, http }) => {
           return (
             component.asyncData &&
             component.asyncData({
-              ...http,
-              app,
-              store,
-              router,
+              ...context,
               route: router.currentRoute,
             })
           );

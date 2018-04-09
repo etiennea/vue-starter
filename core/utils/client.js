@@ -5,11 +5,11 @@ if (process.env.NODE_ENV === 'development' && process.client) {
   require('tota11y/build/tota11y.min');
 }
 
-export const startApp = context => {
+export const startApp = async context => {
   const { app, router, store } = context;
 
   if (!process.ssr) {
-    store.dispatch('httpRequest', context);
+    await store.dispatch('httpRequest', context);
   }
 
   router.onReady(() => {
@@ -20,8 +20,6 @@ export const startApp = context => {
       const matched = router.getMatchedComponents(to);
       const prevMatched = router.getMatchedComponents(from);
       let diffed = false;
-
-      if (store.state.error) store.commit('CLEAR_ERROR');
 
       const activated = matched.filter((component, i) => {
         return diffed || (diffed = prevMatched[i] !== component);
@@ -49,5 +47,11 @@ export const startApp = context => {
      * Mount app
      */
     app.$mount('#app');
+
+    // Remove loader in SPA mode
+    if (!process.ssr) {
+      const loader = document.querySelector('.spa-loading');
+      if (loader) loader.remove();
+    }
   });
 };

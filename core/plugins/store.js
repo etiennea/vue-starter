@@ -7,10 +7,9 @@ Vue.use(Vuex);
 export function createStore() {
   const store = new Vuex.Store(baseStore);
 
-  if (process.client && process.ssr) {
-    if (window.__INITIAL_STATE__) {
-      store.replaceState(window.__INITIAL_STATE__);
-    }
+  if (process.client && process.ssr && window.__DATA__) {
+    const { state } = window.__DATA__;
+    store.replaceState(state);
   }
 
   return store;
