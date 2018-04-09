@@ -45,19 +45,6 @@
 * Error page
 * Example
 
-* Cleaning
-
-  * Core
-    * Helpers `vueclass`, `vuets` and `storeModule` with aliases
-    * Better entry files with async support
-    * Vue plugins folder
-    * Workbox move to main index
-    * Project config defaults
-    * Move htmls to core
-  * Webpack
-    * Function to get rules & plugins
-    * SSR dev mode with MultiCompiler
-
 * Future
   * SSR
     * Redirect function (wip)

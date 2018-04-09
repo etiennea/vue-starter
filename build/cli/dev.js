@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const baseConfig = require('../webpack.base');
+const { getPath } = require('../utils');
 
 module.exports = program => {
   program
@@ -8,12 +8,12 @@ module.exports = program => {
     .option('--ssr', 'SSR mode')
     .action(({ ssr }) => {
       // Clean
-      fs.removeSync(baseConfig.output.path);
+      fs.removeSync(getPath('.', 'dist'));
 
       if (ssr) {
-        require('../ssr/server');
+        require('../servers/ssr');
       } else {
-        require('../spa/devServer');
+        require('../servers/spa.dev');
       }
     });
 };

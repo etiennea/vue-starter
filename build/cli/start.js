@@ -5,9 +5,9 @@ module.exports = program => {
     .option('--ssr', 'SSR mode')
     .action(({ ssr }) => {
       if (ssr) {
-        require('../ssr/server');
+        require('../servers/ssr');
       } else {
-        require('../spa/server');
+        require('../servers/spa.prod');
       }
     });
 };

@@ -2,6 +2,6 @@
 .env
 dist
 node_modules
-tmp/**/*
+.tmp/**/*
 tests/e2e/videos
 tests/e2e/screenshots
