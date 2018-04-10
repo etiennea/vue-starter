@@ -19,7 +19,7 @@ export function applyAsyncData(component, asyncData) {
 }
 
 export const getComponentAsyncData = async (component, context) => {
-  let { router, http } = context;
+  let { http } = context;
   let value = null;
 
   if (!http) http = {};
@@ -27,7 +27,6 @@ export const getComponentAsyncData = async (component, context) => {
   if (component.options.asyncData) {
     value = await component.options.asyncData({
       ...context,
-      route: router.currentRoute,
     });
     component.__DATA__ = value;
   }
@@ -35,13 +34,14 @@ export const getComponentAsyncData = async (component, context) => {
   return value;
 };
 
-export const resolveComponents = (route, components, context) => {
+export const resolveComponentsAsyncData = (route, components, context) => {
   return Promise.all(
     components.map(component => {
       if (component.options.asyncData) {
         return getComponentAsyncData(component, {
           ...context,
           route,
+          params: route.params,
         }).then(data => {
           if (data) applyAsyncData(component, data);
           return data;

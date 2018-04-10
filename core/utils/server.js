@@ -1,4 +1,4 @@
-import { resolveComponents } from './asyncData';
+import { resolveComponentsAsyncData } from './asyncData';
 
 /**
  * Start application
@@ -16,7 +16,11 @@ export const startApp = async context => {
     router.push(http.url);
     router.onReady(() => {
       const matchedComponents = router.getMatchedComponents();
-      resolveComponents(router.currentRoute, matchedComponents, context)
+      resolveComponentsAsyncData(
+        router.currentRoute,
+        matchedComponents,
+        context,
+      )
         .then(data => {
           http.asyncData = data;
           http.state = store.state;

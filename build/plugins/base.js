@@ -16,6 +16,7 @@ module.exports = (BUILD = getDefaultBuildOptions()) => {
   buildVars['process.client'] = BUILD.client ? 'true' : 'false';
   buildVars['process.server'] = BUILD.client ? 'false' : 'true';
   buildVars['process.ssr'] = BUILD.ssr ? 'true' : 'false';
+  buildVars['process.dev'] = BUILD.dev ? 'true' : 'false';
 
   return [
     new webpack.DefinePlugin({

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { resolveComponents } from './asyncData';
+import { resolveComponentsAsyncData } from './asyncData';
 
 /**
  * Tota11y
@@ -42,22 +42,11 @@ export const startApp = async context => {
   }
 
   /**
-   * Handling asyncData() method
+   * Handling asyncData() method on route change
    */
   router.beforeResolve((to, from, next) => {
     const matched = router.getMatchedComponents(to);
-    const prevMatched = router.getMatchedComponents(from);
-    let diffed = false;
-
-    const activated = matched.filter((component, i) => {
-      return diffed || (diffed = prevMatched[i] !== component);
-    });
-
-    if (!activated.length) {
-      return next();
-    }
-
-    resolveComponents(to, activated, context)
+    resolveComponentsAsyncData(to, matched, context)
       .then(() => {
         next();
       })
@@ -65,10 +54,14 @@ export const startApp = async context => {
   });
 
   router.onReady(async () => {
-    // SPA call fisrt asyncData
+    // SPA call first asyncData
     if (!process.ssr) {
       const components = router.getMatchedComponents();
-      await resolveComponents(router.currentRoute, components, context);
+      await resolveComponentsAsyncData(
+        router.currentRoute,
+        components,
+        context,
+      );
     }
 
     /**
