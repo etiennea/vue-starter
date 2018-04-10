@@ -40,10 +40,8 @@
 
 ## Todo
 
-* SSR: asyncData with component data (wip)
-* SSR: Error page
+* SSR/SPA: Errors pages (500, 404)
 * Example
-
 * Future
   * SSR
     * Redirect function (wip)
@@ -51,7 +49,9 @@
     * Middlewares system
     * Layouts system
   * Dockerfile
-  * Webpack: extend with in project config
+  * Webpack
+    * extend with in project config
+    * better way to manage config
   * Yeoman generator
 
 ## License
