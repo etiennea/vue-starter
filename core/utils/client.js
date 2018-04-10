@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { resolveComponentsAsyncData } from './asyncData';
+import { resolveComponentsAsyncData, handleHMRAsyncData } from './asyncData';
 
 /**
  * Tota11y
@@ -52,6 +52,13 @@ export const startApp = async context => {
       })
       .catch(next);
   });
+
+  /**
+   * Handling HMR
+   */
+  if (process.dev) {
+    handleHMRAsyncData(router, context);
+  }
 
   router.onReady(async () => {
     // SPA call first asyncData
