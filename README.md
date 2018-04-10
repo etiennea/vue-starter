@@ -41,7 +41,14 @@
 
 ## Todo
 
-* SSR/SPA: Errors pages (500, 404)
+* Error page
+  * 404/Not found error
+  * Error status code
+  * Show nice stacktrace in dev
+* app/core
+  * App.vue (MainView component with RouterView & ErrorPage)
+  * ErrorPage.vue
+  * loading.html (SPA)
 * Example
 * Future
   * Yeoman generator
@@ -50,7 +57,7 @@
     * Redirect function (wip)
     * Plugins system (wip)
     * Middlewares system
-    * Layouts system
+    * Layouts system (?)
   * Webpack
     * extend with in project config
     * better way to manage config
