@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import routes from '~/routes';
+import ErrorPage from '../Error';
 
 Vue.use(Router);
 
@@ -22,6 +23,12 @@ if (process.client && process.ssr) {
 export function createRouter() {
   return new Router({
     mode: process.ssr ? 'history' : 'hash',
-    routes: [...routes],
+    routes: [
+      {
+        path: '/error',
+        component: ErrorPage,
+      },
+      ...routes,
+    ],
   });
 }

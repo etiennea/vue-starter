@@ -1,3 +1,5 @@
+import errorHandler from './errorHandler';
+
 const noopData = () => ({});
 
 export function applyAsyncData(component, asyncData) {
@@ -59,27 +61,39 @@ const onHotReload = callback => {
   }
 };
 
-export const handleHMRAsyncData = (router, context) => {
+let hmrInstalled = false;
+export const handleHMRAsyncData = context => {
+  if (hmrInstalled) return;
+  hmrInstalled = true;
+
   onHotReload(() => {
+    const { router, store } = context;
     const route = router.currentRoute;
     const matched = router.getMatchedComponents();
 
     // Get data
-    resolveComponentsAsyncData(route, matched, context).then(datas => {
-      // Get instances with asyncData
-      const instances = [];
-      for (const match of router.currentRoute.matched) {
-        if (match.components.default.extendOptions.asyncData) {
-          instances.push(match.instances.default);
+    resolveComponentsAsyncData(route, matched, context)
+      .then(datas => {
+        // Get instances with asyncData
+        const instances = [];
+        for (const match of router.currentRoute.matched) {
+          if (match.components.default.extendOptions.asyncData) {
+            instances.push(match.instances.default);
+          }
         }
-      }
 
-      // Set data on components
-      for (const index in datas) {
-        const data = datas[index];
-        const instance = instances[index];
-        Object.assign(instance.$data, data);
-      }
-    });
+        // Set data on components
+        for (const index in datas) {
+          const data = datas[index];
+          const instance = instances[index];
+          if (instance) Object.assign(instance.$data, data);
+        }
+      })
+      .then(() => {
+        store.commit('error/CLEAR');
+      })
+      .catch(error => {
+        errorHandler(context, { error });
+      });
   });
 };

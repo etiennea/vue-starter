@@ -27,6 +27,7 @@
   * vuex & meta integration
   * PWA, Workbox & Critical CSS support
 * **CLI** with `dev`, `build` and `start` commands
+* Accessibility checks with Tota11y
 
 ## Description
 
@@ -43,16 +44,16 @@
 * SSR/SPA: Errors pages (500, 404)
 * Example
 * Future
+  * Yeoman generator
+  * Dockerfile
   * SSR
     * Redirect function (wip)
     * Plugins system (wip)
     * Middlewares system
     * Layouts system
-  * Dockerfile
   * Webpack
     * extend with in project config
     * better way to manage config
-  * Yeoman generator
 
 ## License
 

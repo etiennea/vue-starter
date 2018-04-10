@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import { resolveComponentsAsyncData, handleHMRAsyncData } from './asyncData';
+import errorHandler from './errorHandler';
 
 /**
  * Tota11y
@@ -50,14 +51,17 @@ export const startApp = async context => {
       .then(() => {
         next();
       })
-      .catch(next);
+      .catch(error => {
+        errorHandler(context, { error });
+        next(error);
+      });
   });
 
   /**
    * Handling HMR
    */
   if (process.dev) {
-    handleHMRAsyncData(router, context);
+    handleHMRAsyncData(context);
   }
 
   router.onReady(async () => {

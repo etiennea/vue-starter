@@ -114,20 +114,37 @@ const renderRoute = (ctx, context) => {
   return new Promise(resolve => {
     ctx.set('content-type', 'text/html');
 
-    const errorHandler = err => {
+    const errorHandler = error => {
       ctx.response.status = 500;
-      ctx.response.body = `
-        500 | Fatal error: ${err}
-        <br>
-        <br>
-        <pre>${err.stack}</pre>
-      `;
+
+      // Render error page
+      context = {
+        url: '/error',
+        ctx,
+      };
+
+      renderer.renderToString(context, async (err, html) => {
+        if (err) {
+          // eslint-disable-next-line
+          console.error(err.stack || err);
+          ctx.response.body = `Whoops!`;
+          return resolve();
+        }
+
+        if (!context.state) context.state = {};
+        context.state.error = {
+          current: { error: error.stack || error.message || error },
+        };
+
+        ctx.response.body = await htmlBuilder(context, html);
+        resolve();
+      });
     };
 
     renderer.renderToString(context, async (err, html) => {
       if (err) {
         errorHandler(err);
-        return resolve();
+        return;
       }
       ctx.response.status = 200;
       ctx.response.body = await htmlBuilder(context, html);
