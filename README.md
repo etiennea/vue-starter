@@ -22,7 +22,7 @@
 * Units tests with **Mocha & @vue/test-utils**
 * E2E tests with **Cypress**
 * **Linters** (ESLint & Stylelint) and **Prettier**
-* **SSR** support (work in progress)
+* **SSR** support
   * Koa & koa-webpack
   * vuex & meta integration
   * PWA, Workbox & Critical CSS support
@@ -31,9 +31,58 @@
 * Accessibility checks with Tota11y
 * **Errors** dedicated page
 
+## Why ? [Nuxt](https://nuxtjs.org/) exists !
+
+Yeah, Nuxt is great, unit and battle-tested. I've done this project only for my needs and
+to understand: how Vue works, server-side rendering and Webpack better. In the end,
+I think Nuxt is a bit too much opinionated and some files are not overwritable,
+but it's just a matter of taste !
+
+So, if you want a production-ready tool, use Nuxt. If you want to learn / see how
+server-side rendering works in Vue take a look at the source code !
+
+## Getting started
+
+**Start development server:**
+
+```sh
+npm run dev # SPA mode
+npm run dev -- --ssr # SSR mode
+```
+
+**Build production:**
+
+```sh
+npm run build #SPA mode
+npm run build -- --ssr # SSR mode
+```
+
+**Start production server:**
+
+```sh
+npm start #SPA mode
+npm start -- --ssr # SSR mode
+```
+
 ## Description
 
-**TODO**
+### Folders & files structure
+
+* `/app` : Contains all your application components and logic
+* `/app/core` : Contains needed files by core to run, but you can customize some elements for your app
+* `/assets` : For your SCSS files, images and fonts
+* `/build` : Webpack configuration, development and production servers
+* `/core` : Base files for Vue initialization, for advanced customizations
+* `/static` : Will be copied to `/dist` folder directly
+* `/tests` : Units & E2E tests files
+* `/project.js` : Base configuration for your project
+
+**More to come...**
+
+* Vue class component
+* Store module helper
+* Initialization function
+* PWA & Workbox
 
 ## Credits
 
@@ -41,21 +90,21 @@
 * [NuxtJS members](https://nuxtjs.org/)
 * [@crisbal and his great repo](https://github.com/crisbal/vue-webpack-ssr-fully-featured)
 
-## Todo
+## Todo / WIP / Future
 
-* Example
-* Future
-  * Yeoman generator
-  * Dockerfile
-  * Error page: nice stacktrace
-  * SSR
-    * Redirect function (wip)
-    * Plugins system (wip)
-    * Middlewares system
-    * Layouts system (?)
-  * Webpack
-    * extend with in project config
-    * better way to manage config
+* Yeoman generator
+* Dockerfile
+* Error page: nice stacktrace
+* SSR
+  * Vue directives management: https://ssr.vuejs.org/en/api.html#directives
+  * How manage JS libs without SSR support
+  * Redirect function (wip)
+  * Plugins system (wip)
+  * Middlewares system
+  * Layouts system (?)
+* Webpack
+  * extend with in project config
+  * better way to manage config
 
 ## License
 
