@@ -113,40 +113,19 @@ if (isProd) {
 const renderRoute = (ctx, context) => {
   return new Promise(resolve => {
     ctx.set('content-type', 'text/html');
-
-    const errorHandler = error => {
-      ctx.response.status = 500;
-
-      // Render error page
-      context = {
-        url: '/error',
-        ctx,
-      };
-
-      renderer.renderToString(context, async (err, html) => {
-        if (err) {
-          // eslint-disable-next-line
-          console.error(err.stack || err);
-          ctx.response.body = `Whoops!`;
-          return resolve();
-        }
-
-        if (!context.state) context.state = {};
-        context.state.error = {
-          current: { error: error.stack || error.message || error },
-        };
-
-        ctx.response.body = await htmlBuilder(context, html);
-        resolve();
-      });
-    };
-
     renderer.renderToString(context, async (err, html) => {
       if (err) {
-        errorHandler(err);
+        ctx.response.status = 500;
+        ctx.response.body = `Whoops!`;
         return;
       }
-      ctx.response.status = 200;
+
+      if (context.error) {
+        ctx.response.status = 500;
+      } else {
+        ctx.response.status = 200;
+      }
+
       ctx.response.body = await htmlBuilder(context, html);
       resolve();
     });

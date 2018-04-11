@@ -26,7 +26,15 @@ export const startApp = async context => {
           http.state = store.state;
           resolve(app);
         })
-        .catch(reject);
+        .catch(error => {
+          store.commit('error/SET', {
+            error: error.stack || error.messagae || error,
+            statusCode: 500,
+          });
+          http.state = store.state;
+          http.error = error;
+          resolve(app);
+        });
     }, reject);
   });
 };
