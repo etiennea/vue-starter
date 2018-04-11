@@ -26,8 +26,10 @@
   * Koa & koa-webpack
   * vuex & meta integration
   * PWA, Workbox & Critical CSS support
+  * Inject component data with `asyncData()` method
 * **CLI** with `dev`, `build` and `start` commands
 * Accessibility checks with Tota11y
+* **Errors** dedicated page
 
 ## Description
 
@@ -41,10 +43,6 @@
 
 ## Todo
 
-* app/core
-  * App.vue (MainView component with RouterView & ErrorPage)
-  * ErrorPage.vue
-  * loading.html (SPA)
 * Example
 * Future
   * Yeoman generator
