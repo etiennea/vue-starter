@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import App from './App';
+import App from '~/core/App';
 
 import './plugins/meta';
 import { createRouter } from './plugins/router';

@@ -9,6 +9,7 @@
         Go to home
       </a>
     </div>
+    <pre v-if="error">{{ error }}</pre>
   </div>
 </template>
 
@@ -26,6 +27,13 @@ export default class ErrorPage extends Vue {
     if (this.$router.currentRoute.path != '/') {
       this.$router.replace('/');
     }
+  }
+
+  get error() {
+    if (process.dev && this.current.error) {
+      return this.current.error.stack || this.current.error;
+    }
+    return null;
   }
 
   get code() {

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import routes from '~/routes';
-import ErrorPage from '../Error';
+import ErrorPage from '~/core/ErrorPage';
 
 Vue.use(Router);
 

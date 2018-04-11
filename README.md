@@ -41,8 +41,6 @@
 
 ## Todo
 
-* Error page
-  * Show nice stacktrace in dev
 * app/core
   * App.vue (MainView component with RouterView & ErrorPage)
   * ErrorPage.vue
@@ -51,6 +49,7 @@
 * Future
   * Yeoman generator
   * Dockerfile
+  * Error page: nice stacktrace
   * SSR
     * Redirect function (wip)
     * Plugins system (wip)

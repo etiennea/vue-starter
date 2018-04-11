@@ -1,9 +1,11 @@
 <template>
-  <div id="app">
+  <div class="main-view">
+    <!-- Router View -->
     <router-view
-      v-if="!current || !current.error"
+      v-if="!error"
       :key="$route.fullPath"
     />
+    <!-- Error Page -->
     <error-page
       v-else
     />
@@ -12,14 +14,18 @@
 
 <script>
 import { Component, Getter, Vue } from 'vueclass';
-import ErrorPage from './Error';
+import ErrorPage from './ErrorPage';
 
 @Component({
   components: {
     ErrorPage,
   },
 })
-export default class App extends Vue {
+export default class MainView extends Vue {
   @Getter('error/current') current;
+
+  get error() {
+    return this.current ? this.current.error : null;
+  }
 }
 </script>
