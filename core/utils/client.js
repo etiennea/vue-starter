@@ -53,7 +53,7 @@ export const startApp = async context => {
       })
       .catch(error => {
         errorHandler(context, { error });
-        next(error);
+        next();
       });
   });
 
@@ -68,11 +68,15 @@ export const startApp = async context => {
     // SPA call first asyncData
     if (!process.ssr) {
       const components = router.getMatchedComponents();
-      await resolveComponentsAsyncData(
-        router.currentRoute,
-        components,
-        context,
-      );
+      try {
+        await resolveComponentsAsyncData(
+          router.currentRoute,
+          components,
+          context,
+        );
+      } catch (error) {
+        errorHandler(context, { error });
+      }
     }
 
     /**
