@@ -24,11 +24,12 @@ export function createRouter() {
   return new Router({
     mode: process.ssr ? 'history' : 'hash',
     routes: [
-      {
-        path: '/error',
-        component: ErrorPage,
-      },
       ...routes,
+      {
+        path: '*',
+        component: ErrorPage,
+        props: { statusCode: 404 },
+      },
     ],
   });
 }

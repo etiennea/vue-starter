@@ -42,8 +42,6 @@
 ## Todo
 
 * Error page
-  * 404/Not found error
-  * Error status code
   * Show nice stacktrace in dev
 * app/core
   * App.vue (MainView component with RouterView & ErrorPage)

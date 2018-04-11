@@ -1,6 +1,6 @@
 <template>
   <div class="error-page">
-    <h1>Error</h1>
+    <h1>Error {{ code }}</h1>
     <div>
       <a
         href="/"
@@ -13,17 +13,23 @@
 </template>
 
 <script>
-import { Component, Getter, Vue } from 'vueclass';
+import { Component, Getter, Prop, Vue } from 'vueclass';
 
 @Component()
 export default class ErrorPage extends Vue {
   @Getter('error/current') current;
+  @Prop({ type: Number })
+  statusCode;
 
   gotoHome() {
     this.$store.commit('error/CLEAR');
     if (this.$router.currentRoute.path != '/') {
       this.$router.replace('/');
     }
+  }
+
+  get code() {
+    return this.statusCode || this.current.statusCode || 500;
   }
 }
 </script>
