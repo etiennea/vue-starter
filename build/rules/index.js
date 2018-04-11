@@ -4,6 +4,7 @@ const babelLoader = require('./loaders/babel');
 const tsLoader = require('./loaders/ts');
 const vueLoader = require('./loaders/vue');
 const htmlLoader = require('./loaders/html');
+const mdLoader = require('./loaders/md');
 const cssLoader = require('./loaders/css');
 
 const app = getPath('.', 'app');
@@ -32,6 +33,7 @@ module.exports = (BUILD = getDefaultBuildOptions()) => {
       use: [{ loader: 'json-loader' }, { loader: 'yaml-loader' }],
     },
     { test: /\.html$/, use: [htmlLoader], exclude: [/index\.(spa|ssr)\.html/] },
+    { test: /\.md/, use: mdLoader },
     {
       test: /\.css$/,
       use: cssLoader(BUILD),
