@@ -83,6 +83,7 @@ npm start -- --ssr # SSR mode
 * Store module helper
 * Initialization function
 * PWA & Workbox
+* Route loading & transitions
 
 ## Credits
 
@@ -92,7 +93,7 @@ npm start -- --ssr # SSR mode
 
 ## Todo / WIP / Future
 
-* Yeoman generator
+* Scaffold / generator / Vue CLI ?
 * Dockerfile
 * Error page: nice stacktrace
 * SSR
